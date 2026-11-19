@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: needvane-api-engine
+    env: python
+    region: ohio
+    plan: starter
+    buildCommand: "pip install -r requirements.txt && python infra/migrations/m1_init_db.py && python infra/migrations/m7_migration.py && python infra/migrations/m8_migration.py && python infra/migrations/m9_migration.py && python infra/migrations/m10_migration.py"
+    startCommand: "uvicorn apps.api.src.main:app --host 0.0.0.0 --port $PORT --workers 4"
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PROJECT_NAME
+        value: "NeedVane Creator AI"
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: LEMON_SQUEEZY_API_KEY
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+
+  - type: worker
+    name: needvane-email-dispatcher
+    env: python
+    region: ohio
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -c \"import time, requests; print('Starting NeedVane background dispatch worker...'); \
+      while True: \
+        try: requests.post('http://localhost:8000/api/v1/emails/dispatch/run'); \
+        except Exception: pass; \
+        time.sleep(60)\""
+    envVars:
+      - key: DATABASE_URL
+        sync: false
