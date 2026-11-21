@@ -1,5 +1,7 @@
 import time
+from pathlib import Path
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from apps.api.src.core.config import settings
 from apps.api.src.core.database import Base, engine
@@ -30,6 +32,9 @@ app = FastAPI(
     redoc_url="/redoc",
     openapi_url="/openapi.json"
 )
+
+# Static Dashboard Path
+STATIC_INDEX = Path(__file__).resolve().parent / "static" / "index.html"
 
 # CORS Configuration
 app.add_middleware(
@@ -64,13 +69,23 @@ app.include_router(commerce_router, prefix=settings.API_V1_STR)
 app.include_router(billing_router, prefix=settings.API_V1_STR)
 app.include_router(commerce_router)  # Also expose /p/{slug} at root level for clean blog URLs
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def root():
+    """Serves the interactive NeedVane Creator AI Web Dashboard."""
+    if STATIC_INDEX.exists():
+        return FileResponse(STATIC_INDEX)
     return {
         "message": f"Welcome to {settings.PROJECT_NAME} API Engine",
         "documentation": "/docs",
         "health": f"{settings.API_V1_STR}/health"
     }
+
+@app.get("/dashboard", response_class=HTMLResponse)
+def dashboard():
+    """Explicit route for the interactive dashboard."""
+    if STATIC_INDEX.exists():
+        return FileResponse(STATIC_INDEX)
+    return HTMLResponse("<h3>Dashboard static assets not found</h3>", status_code=404)
 
 if __name__ == "__main__":
     import uvicorn
