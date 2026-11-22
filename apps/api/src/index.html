@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeedVane Creator AI — Autonomous Creator Intelligence & Co-Creation Studio</title>
+  <title>NeedVane Creator AI — Autonomous Market Intelligence & Digital Co-Creation Platform</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -18,27 +21,40 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              400: '#818cf8',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
+            app: {
+              bg: '#F8FAFC',        // Warm light-grey background
+              surface: '#FFFFFF',   // White content panels
+              border: '#E2E8F0',    // Clean subtle border
+              sidebar: '#0F172A',   // Deep navy sidebar
+              sidebarHover: '#1E293B',
+              sidebarActive: '#1E293B',
+              textPrimary: '#0F172A',
+              textSecondary: '#64748B',
+              textMuted: '#94A3B8',
             },
-            accent: {
-              cyan: '#06b6d4',
-              emerald: '#10b981',
-              amber: '#f59e0b',
-              rose: '#f43f5e',
-              violet: '#8b5cf6',
+            teal: {
+              50: '#F0FDFA',
+              100: '#CCFBF1',
+              500: '#14B8A6',
+              600: '#0D9488',       // Teal primary action
+              700: '#0F766E',
             },
-            dark: {
-              950: '#07090e',
-              900: '#0c1017',
-              850: '#111722',
-              800: '#161f2e',
-              700: '#222f44',
+            violet: {
+              50: '#EEF2FF',
+              500: '#6366F1',       // Controlled violet accent
+              600: '#4F46E5',
+            },
+            emerald: {
+              50: '#ECFDF5',
+              600: '#059669',
+            },
+            amber: {
+              50: '#FFFBEB',
+              600: '#D97706',
+            },
+            rose: {
+              50: '#FFF1F2',
+              600: '#E11D48',
             }
           }
         }
@@ -46,1401 +62,1741 @@
     }
   </script>
   <style>
-    .glass-panel {
-      background: rgba(17, 23, 34, 0.78);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card {
-      background: rgba(22, 31, 46, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.4);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
-    }
-    .glow-indigo { box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.4); }
-    .glow-emerald { box-shadow: 0 0 35px -8px rgba(16, 185, 129, 0.35); }
-    .glow-amber { box-shadow: 0 0 35px -8px rgba(245, 158, 11, 0.3); }
-    .bg-radial-grid {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
+    body { background-color: #F8FAFC; color: #0F172A; }
+    .panel { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 0.75rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05); }
+    .panel-header { padding: 1rem 1.25rem; border-bottom: 1px solid #F1F5F9; }
+    .btn-teal { background-color: #0D9488; color: #FFFFFF; font-weight: 600; border-radius: 0.5rem; transition: background-color 0.15s ease; }
+    .btn-teal:hover { background-color: #0F766E; }
+    .btn-secondary { background-color: #FFFFFF; border: 1px solid #CBD5E1; color: #334155; font-weight: 600; border-radius: 0.5rem; transition: all 0.15s ease; }
+    .btn-secondary:hover { background-color: #F8FAFC; border-color: #94A3B8; }
+    .tab-pill { padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; transition: all 0.15s ease; cursor: pointer; }
+    .tab-pill.active { background-color: #0F172A; color: #FFFFFF; }
+    .tab-pill.inactive { background-color: #FFFFFF; border: 1px solid #E2E8F0; color: #64748B; }
+    .tab-pill.inactive:hover { background-color: #F1F5F9; color: #0F172A; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0c1017; }
-    ::-webkit-scrollbar-thumb { background: #222f44; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+    ::-webkit-scrollbar-track { background: #F8FAFC; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
   </style>
 </head>
-<body class="bg-dark-950 text-slate-100 font-sans min-h-screen antialiased bg-radial-grid flex flex-col selection:bg-brand-500 selection:text-white">
+<body class="font-sans min-h-screen flex antialiased">
 
-  <!-- ================= TOP NAVIGATION BAR ================= -->
-  <header class="sticky top-0 z-50 glass-panel border-b border-white/10 px-4 lg:px-8 py-3.5">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-      
-      <!-- Brand Logo -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-accent-violet to-accent-cyan flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-brand-500/25">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-lg tracking-tight text-white">NeedVane</span>
-            <span class="text-xs px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider bg-brand-500/20 text-brand-400 border border-brand-500/30">Creator AI v2.0</span>
+  <!-- ================= DEEP NAVY SIDEBAR ================= -->
+  <aside id="sidebar" class="w-64 bg-app-sidebar text-slate-300 flex flex-col justify-between shrink-0 transition-all duration-300 z-30 select-none">
+    <div>
+      <!-- Brand & Logo -->
+      <div class="h-16 flex items-center justify-between px-5 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white font-black text-sm shadow">
+            N
           </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">Autonomous Creator Intelligence & Co-Creation Engine</p>
-        </div>
-      </div>
-
-      <!-- Live Connection Status & Niche Indicator -->
-      <div class="hidden md:flex items-center gap-5 text-xs text-slate-400">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
-          <span>Engine: <strong id="api-status-badge" class="text-slate-200">Live Render Cloud</strong></span>
-        </div>
-        <div class="h-4 w-px bg-slate-800"></div>
-        <div>Audience Focus: <strong class="text-accent-cyan">50k–150k Mid-Tier Sweet Spot</strong></div>
-        <div class="h-4 w-px bg-slate-800"></div>
-        <div>Output: <strong class="text-slate-200">35–45 Page Playbooks</strong></div>
-      </div>
-
-      <!-- Right Controls -->
-      <div class="flex items-center gap-2.5">
-        <a href="/docs" target="_blank" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5 border border-slate-700/60">
-          <svg class="w-3.5 h-3.5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-          </svg>
-          API Swagger
-        </a>
-        <button onclick="toggleSettingsModal()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition border border-slate-700/60" title="Settings">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-        </button>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- ================= NICHE SELECTOR BAR ================= -->
-  <div class="border-b border-white/5 bg-dark-900/80 px-4 py-2.5 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 overflow-x-auto text-xs">
-      <div class="flex items-center gap-2 whitespace-nowrap text-slate-400 font-semibold uppercase text-[11px]">
-        <span>Target Niche:</span>
-      </div>
-      <div class="flex items-center gap-2 overflow-x-auto">
-        <button onclick="changeNiche('wealth')" id="niche-btn-wealth" class="px-3 py-1.5 rounded-lg bg-brand-600/30 border border-brand-500 text-white font-semibold transition whitespace-nowrap flex items-center gap-1.5">
-          <span>💰 Wealth & Agency Growth</span>
-        </button>
-        <button onclick="changeNiche('health')" id="niche-btn-health" class="px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition whitespace-nowrap flex items-center gap-1.5">
-          <span>🥗 Health & Biohacking</span>
-        </button>
-        <button onclick="changeNiche('relationships')" id="niche-btn-relationships" class="px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition whitespace-nowrap flex items-center gap-1.5">
-          <span>❤️ Relationships & Dating</span>
-        </button>
-        <button onclick="changeNiche('ai')" id="niche-btn-ai" class="px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition whitespace-nowrap flex items-center gap-1.5">
-          <span>⚡ AI & Automations</span>
-        </button>
-        <button onclick="changeNiche('mindset')" id="niche-btn-mindset" class="px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition whitespace-nowrap flex items-center gap-1.5">
-          <span>🧠 Deep Focus & Productivity</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= 6-STEP WORKFLOW STEPPER ================= -->
-  <div class="border-b border-white/5 bg-dark-900/60 backdrop-blur-md px-4 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto gap-2 text-xs no-scrollbar">
-      
-      <!-- Step 1 -->
-      <button onclick="switchStep(1)" id="step-nav-1" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-white bg-brand-600/40 border border-brand-500 shadow-sm shadow-brand-500/20 whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-brand-500 text-white flex items-center justify-center text-[10px] font-bold">1</span>
-        <span>50k–150k Creator Radar</span>
-      </button>
-
-      <span class="text-slate-600">→</span>
-
-      <!-- Step 2 -->
-      <button onclick="switchStep(2)" id="step-nav-2" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold">2</span>
-        <span>Top 3 Scored Demands</span>
-      </button>
-
-      <span class="text-slate-600">→</span>
-
-      <!-- Step 3 -->
-      <button onclick="switchStep(3)" id="step-nav-3" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold">3</span>
-        <span>35–45 Page Studio</span>
-      </button>
-
-      <span class="text-slate-600">→</span>
-
-      <!-- Step 4 -->
-      <button onclick="switchStep(4)" id="step-nav-4" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold">4</span>
-        <span>Multi-Creator Split Links</span>
-      </button>
-
-      <span class="text-slate-600">→</span>
-
-      <!-- Step 5 -->
-      <button onclick="switchStep(5)" id="step-nav-5" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold">5</span>
-        <span>Outreach & Response CRM</span>
-      </button>
-
-      <span class="text-slate-600">→</span>
-
-      <!-- Step 6 -->
-      <button onclick="switchStep(6)" id="step-nav-6" class="flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap">
-        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold">6</span>
-        <span>Live Storefront</span>
-      </button>
-
-    </div>
-  </div>
-
-  <!-- ================= MAIN APP CONTAINER ================= -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-
-    <!-- ============================================================== -->
-    <!-- STEP 1: 50K–150K CREATOR RADAR & AUTONOMOUS SURFER             -->
-    <!-- ============================================================== -->
-    <section id="step-1-view" class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 text-accent-cyan text-xs font-semibold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            Step 1 · Autonomous Niche Discovery
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">Creator Discovery (50k–150k Subscriber Focus)</h1>
-          <p class="text-sm text-slate-400 mt-0.5">Focusing on high-engagement mid-tier creators who have passionate audiences but <strong>no internal product team</strong>.</p>
-        </div>
-
-        <!-- Mode Toggle & Action -->
-        <div class="flex items-center gap-3">
-          <button onclick="triggerAutonomousSurfer()" id="btn-surf-web" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-accent-cyan to-brand-600 hover:opacity-90 text-xs font-bold text-white transition shadow-lg shadow-cyan-500/20 flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            <span>Surf Internet for New 50k–150k Creators</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Why 50k-150k Callout Banner -->
-      <div class="p-4 rounded-2xl bg-brand-950/40 border border-brand-500/30 flex items-start gap-3.5">
-        <div class="p-2 rounded-lg bg-brand-500/20 text-brand-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <div class="text-xs space-y-1">
-          <strong class="text-white font-bold text-sm">The 50,000 to 150,000 Subscriber Monetization Law:</strong>
-          <p class="text-slate-300 leading-relaxed">
-            Creators with 1M+ subscribers already have agencies, manager gates, and established courses. Creators under 50k lack conversion volume. Mid-tier creators (50k–150k) have <strong>hyper-active comment sections</strong>, high trust, and <strong>10x higher partnership reply rates</strong> because you do 100% of the work while handing them 70% of the revenue.
-          </p>
-        </div>
-      </div>
-
-      <!-- Creator Cards Grid -->
-      <div id="creators-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Injected via JavaScript -->
-      </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- STEP 2: SOLVE COMMENTS & TOP 3 ALGORITHMIC DEMAND MATRIX       -->
-    <!-- ============================================================== -->
-    <section id="step-2-view" class="hidden space-y-6">
-      <div id="active-creator-banner" class="glass-panel p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-brand-500/20 glow-indigo">
-        <!-- Injected via JS -->
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left: Parsed Comment Section -->
-        <div class="lg:col-span-5 space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-accent-amber animate-pulse"></span>
-              Live Comment Section Miner
-            </h3>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">Comments Scraped</span>
-          </div>
-          
-          <div id="comments-container" class="space-y-3 max-h-[540px] overflow-y-auto pr-1">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-        <!-- Right: Top 3 Algorithmic Recommendations -->
-        <div class="lg:col-span-7 space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <svg class="w-4 h-4 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Top 3 Algorithmic Recommendations (Formula: 7/8 Score)
-              </h3>
-              <p class="text-xs text-slate-400 mt-0.5">Ranked by Demand Urgency (35%), Willingness to Pay (30%), 40-Page Solvability (20%), and Low Saturation (15%).</p>
-            </div>
-          </div>
-
-          <div id="top-3-demands-container" class="space-y-4">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- STEP 3: 35–45 PAGE DIGITAL PRODUCT STUDIO                      -->
-    <!-- ============================================================== -->
-    <section id="step-3-view" class="hidden space-y-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="flex items-center gap-2 text-brand-400 text-xs font-semibold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-            Step 3 · Publication-Grade Co-Creation Studio
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">35 to 45 Page Comprehensive Playbook Studio</h1>
-          <p class="text-sm text-slate-400 mt-0.5">Generating real, comprehensive SOPs, frameworks, and resource vaults that justify high selling prices ($47–$97).</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left: Product Configuration & Deep Curriculum -->
-        <div class="lg:col-span-7 space-y-5">
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-5">
-            <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Product Title</label>
-              <input id="prod-title" type="text" value="The 14-Day Agency AI Automation Playbook & Notion Vault" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-brand-500">
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Page Length</label>
-                <div class="p-2.5 rounded-xl bg-dark-850 border border-slate-700 text-xs font-mono font-bold text-accent-cyan">
-                  42 Pages (Full Asset)
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Target Price</label>
-                <div class="relative">
-                  <span class="absolute left-3 top-2 text-sm text-slate-400">$</span>
-                  <input id="prod-price" type="number" value="67" oninput="updateCalculators()" class="w-full bg-dark-850 border border-slate-700 rounded-xl pl-7 pr-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-brand-500">
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Included Vaults</label>
-                <div class="p-2.5 rounded-xl bg-dark-850 border border-slate-700 text-xs font-semibold text-slate-300">
-                  Notion + 45 Prompts
-                </div>
-              </div>
-            </div>
-
-            <!-- Deep 5-Chapter Architecture -->
-            <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Comprehensive Chapter Architecture (35–45 Pages)</label>
-              <div id="deep-chapters-list" class="space-y-2.5">
-                <!-- Injected via JS -->
-              </div>
-            </div>
-
-            <!-- Action Controls -->
-            <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
-              <button onclick="downloadSamplePDF()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition flex items-center gap-2 border border-slate-700">
-                <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                Download 42-Page Compiled Blueprint
-              </button>
-              <button onclick="switchStep(4)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-violet hover:opacity-95 text-xs font-bold text-white transition shadow-lg shadow-brand-500/25 flex items-center gap-2">
-                <span>Configure Multi-Creator Split Links</span>
-                <span>→</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: 3D Visual Book Mockup & Architecture Preview -->
-        <div class="lg:col-span-5 space-y-5">
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 flex flex-col items-center text-center glow-indigo">
-            <div id="product-cover-mock" class="w-48 h-64 rounded-xl bg-gradient-to-br from-slate-900 via-brand-950 to-indigo-950 p-5 border border-brand-500/40 shadow-2xl relative flex flex-col justify-between text-left transition transform hover:rotate-1">
-              <div>
-                <span class="text-[9px] uppercase tracking-widest text-accent-cyan font-bold block">NeedVane Production Edition</span>
-                <h4 id="cover-mock-title" class="text-sm font-extrabold text-white leading-snug mt-2">The 14-Day Agency AI Automation Playbook</h4>
-                <p id="cover-mock-sub" class="text-[10px] text-slate-300 mt-1">42 Pages · Full Operational SOPs</p>
-              </div>
-              <div>
-                <div class="text-[9px] text-slate-400">Co-Created with:</div>
-                <div id="cover-mock-author" class="text-[12px] font-bold text-accent-emerald">Marcus Vance (84K Subs)</div>
-              </div>
-            </div>
-
-            <div class="w-full mt-6 pt-5 border-t border-slate-800 space-y-2 text-left text-xs">
-              <div class="flex justify-between text-slate-400">
-                <span>Quality Score:</span> <strong class="text-accent-emerald font-bold">98/100 (Publication Ready)</strong>
-              </div>
-              <div class="flex justify-between text-slate-400">
-                <span>Total Words:</span> <strong class="text-slate-200">14,200 words</strong>
-              </div>
-              <div class="flex justify-between text-slate-400">
-                <span>Frameworks Included:</span> <strong class="text-slate-200">6 Visual Diagrams + 45 Prompts</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- STEP 4: MULTI-CREATOR SPLIT LINKS & DEAL DESK                  -->
-    <!-- ============================================================== -->
-    <section id="step-4-view" class="hidden space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 text-accent-emerald text-xs font-semibold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            Step 4 · Multi-Creator Revenue Split Engine
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">Multi-Creator Custom Links & Revenue Formulas</h1>
-          <p class="text-sm text-slate-400 mt-0.5">Partner with 2, 3, or more creators in this niche using the SAME digital product with unique referral links and custom split percentages.</p>
-        </div>
-
-        <button onclick="openNewCreatorLinkModal()" class="px-4 py-2.5 rounded-xl bg-accent-emerald hover:bg-emerald-600 font-bold text-xs text-white transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
-          <span>+ Generate New Creator Partner Link</span>
-        </button>
-      </div>
-
-      <!-- Creator Split Links Table -->
-      <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
-        <div class="p-5 border-b border-white/5 flex items-center justify-between">
-          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Active Partner Tracking Links for This Product</h3>
-          <span class="text-xs text-slate-400 font-mono">Product ID: <code class="text-brand-400">prod_agency_playbook_42p</code></span>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-dark-900/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-              <tr>
-                <th class="py-3 px-4">Creator Partner</th>
-                <th class="py-3 px-4">Unique Storefront URL</th>
-                <th class="py-3 px-4">Split Formula</th>
-                <th class="py-3 px-4">Custom Price</th>
-                <th class="py-3 px-4">Sales Tracked</th>
-                <th class="py-3 px-4">Creator Payout</th>
-                <th class="py-3 px-4">Your Share</th>
-                <th class="py-3 px-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="creator-links-tbody" class="divide-y divide-slate-800/60 text-slate-300">
-              <!-- Injected via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Quick Action to Next Step -->
-      <div class="flex justify-end pt-2">
-        <button onclick="switchStep(5)" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition flex items-center gap-2">
-          <span>Go to Creator Outreach & Response CRM</span>
-          <span>→</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- STEP 5: CREATOR OUTREACH & LIVE RESPONSE CRM                   -->
-    <!-- ============================================================== -->
-    <section id="step-5-view" class="hidden space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 text-accent-violet text-xs font-semibold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Step 5 · Creator Outreach & Response Pipeline
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">Creator Outreach & Response CRM</h1>
-          <p class="text-sm text-slate-400 mt-0.5">Track dispatched pitches, open rates, and creators who replied with interest to activate their unique link.</p>
-        </div>
-      </div>
-
-      <!-- Pipeline Status Boards -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        
-        <!-- Col 1: Pitched -->
-        <div class="glass-panel p-4 rounded-2xl border border-white/5 space-y-3">
-          <div class="flex items-center justify-between text-xs font-bold text-slate-300">
-            <span>📤 Pitched (Waiting)</span>
-            <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">4</span>
-          </div>
-          <div class="space-y-2.5" id="col-pitched">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-        <!-- Col 2: Signified Interest / Replied -->
-        <div class="glass-panel p-4 rounded-2xl border border-accent-emerald/30 space-y-3 glow-emerald">
-          <div class="flex items-center justify-between text-xs font-bold text-accent-emerald">
-            <span>🟢 Interested / Replied!</span>
-            <span class="px-2 py-0.5 rounded-full bg-accent-emerald/20 text-accent-emerald">2</span>
-          </div>
-          <div class="space-y-2.5" id="col-interested">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-        <!-- Col 3: Deal Signed & Live -->
-        <div class="glass-panel p-4 rounded-2xl border border-brand-500/30 space-y-3 glow-indigo">
-          <div class="flex items-center justify-between text-xs font-bold text-brand-400">
-            <span>🤝 Signed & Storefront Live</span>
-            <span class="px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300">2</span>
-          </div>
-          <div class="space-y-2.5" id="col-signed">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-        <!-- Col 4: Declined -->
-        <div class="glass-panel p-4 rounded-2xl border border-white/5 space-y-3">
-          <div class="flex items-center justify-between text-xs font-bold text-slate-400">
-            <span>⚪ No Response / Declined</span>
-            <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-500">1</span>
-          </div>
-          <div class="space-y-2.5" id="col-declined">
-            <!-- Injected via JS -->
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Live Reply Drawer Preview -->
-      <div class="glass-panel p-5 rounded-2xl border border-white/10 space-y-4">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
-          Latest Creator Response Received
-        </h3>
-        <div class="p-4 rounded-xl bg-dark-850 border border-slate-800 space-y-2 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-white">Elena Rostova (112K Subs) — via Instagram DM & Email</span>
-            <span class="text-slate-400">14 minutes ago</span>
-          </div>
-          <p class="text-slate-300 italic">
-            "Hey! Just saw your email breakdown with the quotes from my comment section. You literally identified the exact operational headache my community has been complaining about for months! The 42-page blueprint draft looks super high quality. I am definitely open to the 70/30 split. Send me my unique link so I can test it!"
-          </p>
-          <div class="pt-2 flex items-center gap-3">
-            <button onclick="switchStep(4)" class="px-3.5 py-1.5 rounded-lg bg-accent-emerald hover:bg-emerald-600 text-white font-bold transition">
-              Activate Elena's 70/30 Link
-            </button>
-            <button onclick="switchStep(6)" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition">
-              Preview Her Customer Storefront
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- STEP 6: CUSTOMER STOREFRONT & 1-CLICK CHECKOUT                 -->
-    <!-- ============================================================== -->
-    <section id="step-6-view" class="hidden space-y-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="flex items-center gap-2 text-accent-cyan text-xs font-semibold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            Step 6 · Public Creator Storefront
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">Customer-Facing Digital Storefront</h1>
-          <p class="text-sm text-slate-400 mt-0.5">Dynamic landing page automatically branded to the specific creator's unique link.</p>
-        </div>
-        <div class="text-xs text-slate-400">
-          Current Referral: <code id="storefront-ref-tag" class="px-2 py-1 rounded bg-slate-800 text-brand-400 font-mono">?ref=marcus_vance_84k</code>
-        </div>
-      </div>
-
-      <!-- Storefront Landing Page Card -->
-      <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 glow-indigo max-w-4xl mx-auto space-y-8">
-        
-        <!-- Partnership Badge -->
-        <div class="flex justify-center">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-xs font-semibold text-brand-300">
-            <span>✨ Officially Co-Created with</span>
-            <span id="storefront-creator-badge" class="font-bold text-white underline decoration-accent-cyan underline-offset-2">Marcus Vance (84K Subs)</span>
-          </div>
-        </div>
-
-        <!-- Hero Content -->
-        <div class="text-center space-y-3">
-          <h2 id="storefront-title" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight max-w-2xl mx-auto">
-            The 14-Day Agency AI Automation Playbook & Notion Vault
-          </h2>
-          <p class="text-slate-300 text-sm max-w-xl mx-auto">
-            Stop losing hours on repetitive client delivery. Plug in the exact battle-tested workflows, system prompts, and Notion delivery boards used by 7-figure operators.
-          </p>
-        </div>
-
-        <!-- Product Preview Box -->
-        <div class="p-6 rounded-2xl bg-dark-900/90 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-          <div class="md:col-span-1 flex justify-center">
-            <div class="w-36 h-48 rounded-xl bg-gradient-to-tr from-brand-900 to-indigo-800 border border-brand-500/40 p-3 flex flex-col justify-between shadow-2xl">
-              <span class="text-[8px] uppercase tracking-wider text-accent-cyan font-bold">NeedVane Edition</span>
-              <div class="text-xs font-extrabold text-white leading-tight">Agency AI Sprint</div>
-              <span class="text-[8px] text-slate-300">42 Pages · Full System</span>
-            </div>
-          </div>
-          <div class="md:col-span-2 space-y-3 text-xs text-slate-300">
-            <div class="font-bold text-sm text-white">What's Included in the 42-Page Asset:</div>
-            <ul class="space-y-1.5">
-              <li class="flex items-center gap-2">✅ <strong>42-Page Master PDF Playbook:</strong> Comprehensive operational frameworks</li>
-              <li class="flex items-center gap-2">✅ <strong>Interactive Notion Board:</strong> Pre-built client onboarding and delivery hub</li>
-              <li class="flex items-center gap-2">✅ <strong>45 Tested System Prompts:</strong> For AI operations and client management</li>
-              <li class="flex items-center gap-2">✅ <strong>Instant Digital Delivery:</strong> Access immediately upon payment</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Buy Section -->
-        <div class="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl bg-gradient-to-r from-brand-950/60 to-dark-850 border border-brand-500/30 gap-4">
           <div>
-            <div class="text-xs text-slate-400">Regular Price: <span class="line-through text-slate-500">$197</span></div>
-            <div class="text-3xl font-extrabold text-white mt-0.5">$<span id="storefront-price-display">67</span> <span class="text-xs font-normal text-slate-400">USD (One-time)</span></div>
+            <span class="font-bold text-white tracking-tight text-sm block">NeedVane</span>
+            <span class="text-[10px] text-teal-400 font-semibold uppercase tracking-wider block">Creator AI v2.0</span>
+          </div>
+        </div>
+        <button onclick="toggleSidebarCollapse()" class="text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-800">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+        </button>
+      </div>
+
+      <!-- User Role Indicator -->
+      <div class="px-5 py-3 border-b border-slate-800/60 bg-slate-900/50 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span id="role-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="current-user-role-label" class="text-slate-200 font-semibold">Administrator</span>
+        </div>
+        <button onclick="toggleRoleSwitchModal()" class="text-[11px] text-teal-400 hover:text-teal-300 underline font-medium">Switch</button>
+      </div>
+
+      <!-- Main Navigation 8 Tabs -->
+      <nav class="p-3 space-y-1 text-xs font-medium">
+        
+        <!-- Tab 1: Overview -->
+        <button onclick="switchMainTab('overview')" id="nav-tab-overview" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white bg-slate-800 transition">
+          <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>Overview</span>
+        </button>
+
+        <!-- Tab 2: Market Intelligence -->
+        <button onclick="switchMainTab('market-intel')" id="nav-tab-market-intel" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Market Intelligence</span>
+        </button>
+
+        <!-- Tab 3: Creator Distribution -->
+        <button onclick="switchMainTab('creators')" id="nav-tab-creators" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          <span>Creator Distribution</span>
+        </button>
+
+        <!-- Tab 4: Product Studio -->
+        <button onclick="switchMainTab('studio')" id="nav-tab-studio" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Product Studio</span>
+        </button>
+
+        <!-- Tab 5: Creator Outreach -->
+        <button onclick="switchMainTab('outreach')" id="nav-tab-outreach" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>Creator Outreach</span>
+        </button>
+
+        <!-- Tab 6: Storefront & Products -->
+        <button onclick="switchMainTab('storefront')" id="nav-tab-storefront" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>Storefront & Products</span>
+        </button>
+
+        <!-- Tab 7: Sales & Analytics -->
+        <button onclick="switchMainTab('analytics')" id="nav-tab-analytics" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z"/></svg>
+          <span>Sales & Analytics</span>
+        </button>
+
+        <!-- Tab 8: Administration -->
+        <button onclick="switchMainTab('admin')" id="nav-tab-admin" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Administration</span>
+        </button>
+
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom: System Health -->
+    <div class="p-4 border-t border-slate-800 text-xs space-y-2">
+      <div class="flex items-center justify-between text-slate-400 text-[11px]">
+        <span>Cloud Database</span>
+        <span class="text-emerald-400 font-semibold flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Neon Postgres
+        </span>
+      </div>
+      <div class="flex items-center justify-between text-slate-400 text-[11px]">
+        <span>Vector Search</span>
+        <span class="text-slate-300 font-mono">pgvector v0.7</span>
+      </div>
+      <div class="flex items-center justify-between text-slate-400 text-[11px]">
+        <span>Production Host</span>
+        <span class="text-teal-400 font-semibold">Render Live</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    
+    <!-- Top Global Header -->
+    <header class="h-16 bg-white border-b border-app-border px-6 flex items-center justify-between sticky top-0 z-20">
+      <div class="flex items-center gap-4">
+        <h1 id="current-view-title" class="text-base font-bold text-slate-900 tracking-tight">Overview</h1>
+        <div class="h-4 w-px bg-slate-200"></div>
+        <span id="current-project-badge" class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-medium border border-slate-200">
+          Active Workspace: <strong>NeedVane Production Lab</strong>
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Quick Notification Bell -->
+        <button onclick="switchMainTab('overview'); switchSubTab('overview', 'notifications');" class="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 relative">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="w-2 h-2 rounded-full bg-teal-600 absolute top-1.5 right-1.5"></span>
+        </button>
+
+        <!-- Current User Avatar / Role Pill -->
+        <div class="flex items-center gap-2.5 pl-2 border-l border-slate-200">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs" id="header-avatar-initials">
+            AD
+          </div>
+          <div class="text-left text-xs">
+            <span id="header-user-name" class="font-bold text-slate-900 block leading-tight">Platform Admin</span>
+            <span id="header-user-role" class="text-[10px] text-teal-700 font-semibold">Full Workspace Control</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sub-Tab Navigation Bar -->
+    <div id="subtab-bar" class="bg-white border-b border-app-border px-6 py-2.5 flex items-center gap-2 overflow-x-auto">
+      <!-- Injected via JavaScript based on Active Main Tab -->
+    </div>
+
+    <!-- Main Content Canvas -->
+    <main class="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+      
+      <!-- ============================================================== -->
+      <!-- TAB 1: OVERVIEW                                                -->
+      <!-- ============================================================== -->
+      <div id="view-overview" class="space-y-6">
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="panel p-5">
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Validated Problems</span>
+            <div class="text-2xl font-bold text-slate-900 mt-1">24</div>
+            <div class="text-xs text-emerald-600 font-medium mt-1">↑ 5 new this week</div>
+          </div>
+          <div class="panel p-5">
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Active Products</span>
+            <div class="text-2xl font-bold text-slate-900 mt-1">6</div>
+            <div class="text-xs text-slate-500 font-medium mt-1">35–45 Page Standard</div>
+          </div>
+          <div class="panel p-5">
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Partner Creators</span>
+            <div class="text-2xl font-bold text-slate-900 mt-1">18</div>
+            <div class="text-xs text-teal-700 font-medium mt-1">50k–150k Followers focus</div>
+          </div>
+          <div class="panel p-5">
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Total Sales Revenue</span>
+            <div class="text-2xl font-bold text-slate-900 mt-1" id="ov-rev-display">$34,840</div>
+            <div class="text-xs text-emerald-600 font-medium mt-1">70% Creator / 30% Us</div>
+          </div>
+        </div>
+
+        <!-- Recent Projects & Active Jobs -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="panel">
+            <div class="panel-header flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-900">Recent Projects</h3>
+              <button onclick="switchMainTab('market-intel')" class="text-xs text-teal-700 hover:underline font-semibold">+ New Research</button>
+            </div>
+            <div class="p-4 space-y-3 text-xs" id="ov-projects-list">
+              <!-- Injected via JS -->
+            </div>
           </div>
 
-          <button onclick="openCheckoutModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-emerald to-emerald-500 hover:opacity-95 text-sm font-extrabold text-white transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>Instant 1-Click Purchase</span>
-          </button>
+          <div class="panel">
+            <div class="panel-header flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-900">Active Production Jobs</h3>
+              <button onclick="switchMainTab('studio'); switchSubTab('studio', 'monitor');" class="text-xs text-teal-700 hover:underline font-semibold">View Live Monitor</button>
+            </div>
+            <div class="p-4 space-y-3 text-xs" id="ov-jobs-list">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Creator Partnership Summary & Sales Table Preview -->
+        <div class="panel">
+          <div class="panel-header flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-900">Creator Partnership Summary</h3>
+            <button onclick="switchMainTab('analytics')" class="text-xs text-teal-700 hover:underline font-semibold">Full Analytics Ledger →</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Creator Partner</th>
+                  <th class="py-3 px-4">Platform & Audience</th>
+                  <th class="py-3 px-4">Active Digital Product</th>
+                  <th class="py-3 px-4">Split Formula</th>
+                  <th class="py-3 px-4">Units Sold</th>
+                  <th class="py-3 px-4">Creator Earnings</th>
+                  <th class="py-3 px-4">Platform Share</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700" id="ov-creators-tbody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 2: MARKET INTELLIGENCE                                     -->
+      <!-- ============================================================== -->
+      <div id="view-market-intel" class="hidden space-y-6">
+        
+        <!-- Sub-View: General Discovery -->
+        <div id="subview-market-intel-general" class="space-y-5">
+          <div class="panel p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">General Problem Discovery Engine</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Surfs Google, Trends, YouTube, TikTok, Reddit, and forums to extract empirically verified problems.</p>
+              </div>
+              <button onclick="runGeneralDiscovery()" id="btn-run-general" class="btn-teal px-4 py-2 text-xs flex items-center gap-2">
+                <span>Start Discovery Run</span>
+              </button>
+            </div>
+            <div class="flex gap-2">
+              <input id="general-search-query" type="text" placeholder="Enter keywords, industry, or search query (e.g., agency automation, sleep disorders, remote work)..." class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-teal-600">
+            </div>
+          </div>
+
+          <!-- Problem Cards List -->
+          <div id="general-problems-container" class="space-y-4">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Sub-View: Niche-Based Discovery -->
+        <div id="subview-market-intel-niche" class="hidden space-y-5">
+          <div class="panel p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Niche Directory (20+ Specialized Categories)</h3>
+            <p class="text-xs text-slate-500 mb-4">Select one or multiple niches to identify at least five verified unmet problems.</p>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs" id="niche-chips-container">
+              <!-- Injected via JS -->
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+              <button onclick="runNicheDiscovery()" class="btn-teal px-4 py-2 text-xs">
+                Scan Selected Niches
+              </button>
+            </div>
+          </div>
+
+          <div id="niche-problems-container" class="space-y-4">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Sub-View: Creator-Based Discovery -->
+        <div id="subview-market-intel-creator" class="hidden space-y-5">
+          <div class="panel p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Creator-Based Comment & Audience Investigation</h3>
+            <p class="text-xs text-slate-500 mb-4">Enter 2 or 3 creator names or Instagram/YouTube handles to inspect their public comments and compare audience opportunities.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              <input id="creator-input-1" type="text" value="@MarcusVanceOps" placeholder="Creator 1 (e.g. @handle)" class="border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-teal-600">
+              <input id="creator-input-2" type="text" value="@ElenaRostovaOps" placeholder="Creator 2 (e.g. @handle)" class="border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-teal-600">
+              <input id="creator-input-3" type="text" value="@LiamKellerAgency" placeholder="Creator 3 (optional)" class="border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-teal-600">
+            </div>
+
+            <button onclick="runCreatorComparison()" class="btn-teal px-4 py-2 text-xs">
+              Compare Audience Problems & Viability
+            </button>
+          </div>
+
+          <div id="creator-comparison-container" class="space-y-4">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Sub-View: Opportunity Rankings -->
+        <div id="subview-market-intel-rankings" class="hidden space-y-4">
+          <div class="panel p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">7/8 Algorithmic Viability Scorer</h3>
+                <p class="text-xs text-slate-500">Formula: 35% Demand Urgency + 30% Willingness to Pay + 20% 35–45P Solvability + 15% Low Saturation</p>
+              </div>
+            </div>
+            <div id="ranked-opportunities-list" class="space-y-3">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-View: Saved Research -->
+        <div id="subview-market-intel-saved" class="hidden space-y-4">
+          <div class="panel p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-2">Saved Research Library</h3>
+            <p class="text-xs text-slate-500 mb-4">Persistent archive of discovered problems and evidence links to avoid duplicate research.</p>
+            <div id="saved-research-list" class="space-y-2 text-xs">
+              <!-- Injected via JS -->
+            </div>
+          </div>
         </div>
 
       </div>
-    </section>
 
-  </main>
+      <!-- ============================================================== -->
+      <!-- TAB 3: CREATOR DISTRIBUTION                                    -->
+      <!-- ============================================================== -->
+      <div id="view-creators" class="hidden space-y-6">
+        <div class="panel p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Creator Matching & Discovery Engine</h3>
+              <p class="text-xs text-slate-500">Focused on the <strong>50,000–150,000 follower/subscriber tier</strong> across Instagram, YouTube, and TikTok.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="filterCreatorNiche('all')" class="tab-pill active">All</button>
+              <button onclick="filterCreatorNiche('wealth')" class="tab-pill inactive">Wealth</button>
+              <button onclick="filterCreatorNiche('health')" class="tab-pill inactive">Health</button>
+              <button onclick="filterCreatorNiche('relationships')" class="tab-pill inactive">Relationships</button>
+              <button onclick="filterCreatorNiche('ai')" class="tab-pill inactive">AI</button>
+            </div>
+          </div>
 
-  <!-- ================= MODAL: ADD NEW CREATOR LINK ================= -->
-  <div id="new-creator-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-lg rounded-2xl p-6 border border-white/10 space-y-4 glow-emerald">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Generate Unique Creator Tracking Link</h3>
-        <button onclick="closeNewCreatorModal()" class="text-slate-400 hover:text-white text-lg font-bold">&times;</button>
+          <!-- Creator Table / Grid -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Creator Profile</th>
+                  <th class="py-3 px-4">Primary Platform</th>
+                  <th class="py-3 px-4">Followers</th>
+                  <th class="py-3 px-4">Engagement Rate</th>
+                  <th class="py-3 px-4">Audience Match</th>
+                  <th class="py-3 px-4">Business Email</th>
+                  <th class="py-3 px-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="creators-directory-tbody" class="divide-y divide-slate-100 text-slate-700">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      <div class="space-y-3.5 text-xs">
-        <div>
-          <label class="block text-slate-400 uppercase font-semibold mb-1">Creator Name & Channel</label>
-          <input id="modal-creator-name" type="text" placeholder="e.g. Elena Rostova (112K Subs)" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-brand-500">
-        </div>
+      <!-- ============================================================== -->
+      <!-- TAB 4: PRODUCT STUDIO                                          -->
+      <!-- ============================================================== -->
+      <div id="view-studio" class="hidden space-y-6">
+        
+        <!-- Sub-View: Workspace & Blueprint -->
+        <div id="subview-studio-workspace" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left: 5-Stage Form -->
+            <div class="lg:col-span-8 space-y-5">
+              <div class="panel p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <h3 class="text-sm font-bold text-slate-900">Product Development Workspace</h3>
+                  <span class="text-xs px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-semibold">Standard: 35–45 Pages</span>
+                </div>
 
-        <div>
-          <label class="block text-slate-400 uppercase font-semibold mb-1">Unique Referral Slug</label>
-          <div class="flex items-center bg-dark-850 border border-slate-700 rounded-xl px-3 py-2 text-slate-400 font-mono">
-            <span>/p/agency-playbook?ref=</span>
-            <input id="modal-creator-slug" type="text" placeholder="elena_112k" class="bg-transparent text-white font-mono focus:outline-none w-full">
+                <!-- Stage 1: Concept -->
+                <div class="space-y-3">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600">Stage 1: Product Concept</h4>
+                  <div>
+                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">Product Title</label>
+                    <input id="studio-title" type="text" value="The 14-Day Agency AI Automation Playbook & Notion Vault" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none focus:border-teal-600">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">Problem Statement & Solution Promise</label>
+                    <textarea id="studio-problem" rows="2" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs text-slate-700 focus:outline-none focus:border-teal-600">Solves manual operational drag in boutique client agencies by providing 42 pages of step-by-step SOPs, 45 tested production prompts, and pre-built Notion delivery boards.</textarea>
+                  </div>
+                </div>
+
+                <!-- Stage 2: Blueprint Table of Contents -->
+                <div class="space-y-3 pt-3 border-t border-slate-100">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600">Stage 2: Chapter Breakdown (35–45 Core Pages)</h4>
+                    <span class="text-xs text-slate-400 font-mono">5 Chapters · 42 Total Pages</span>
+                  </div>
+                  <div id="studio-chapters-container" class="space-y-2">
+                    <!-- Injected via JS -->
+                  </div>
+                </div>
+
+                <!-- Stage 3: Bonus Bundles -->
+                <div class="space-y-3 pt-3 border-t border-slate-100">
+                  <div class="flex items-center justify-between">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600">Complementary Bonus Products (10–15 Pages Each)</h4>
+                    <span class="text-xs text-emerald-600 font-semibold">2 Bonuses Included</span>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="studio-bonuses-preview">
+                    <!-- Injected via JS -->
+                  </div>
+                </div>
+
+                <!-- Action: Trigger Production -->
+                <div class="pt-4 flex items-center justify-between border-t border-slate-100">
+                  <button onclick="downloadMasterPDF()" class="btn-secondary px-4 py-2 text-xs flex items-center gap-2">
+                    <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Download Compiled PDF
+                  </button>
+                  <button onclick="startProductionJob()" id="btn-start-production" class="btn-teal px-5 py-2 text-xs flex items-center gap-2">
+                    <span>Initiate Live Production Job</span>
+                    <span>→</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Live Production Monitor Side Panel -->
+            <div class="lg:col-span-4 space-y-4">
+              <div class="panel p-5">
+                <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                  <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Live Production Monitor</h3>
+                  <span id="monitor-global-status" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">Ready</span>
+                </div>
+                
+                <p class="text-[11px] text-slate-500 mb-3">Real-time status across all 10 automated generation & quality-assurance activities:</p>
+                
+                <div id="monitor-steps-container" class="space-y-2">
+                  <!-- Injected via JS -->
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+                  Quality Assurance Rubric: <strong class="text-emerald-600 font-bold">96/100 (Pass $\ge$ 90)</strong>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 5: CREATOR OUTREACH                                        -->
+      <!-- ============================================================== -->
+      <div id="view-outreach" class="hidden space-y-6">
+        
+        <div class="panel p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Creator Outreach Database & Campaign Manager</h3>
+              <p class="text-xs text-slate-500">Select individual or multiple creators to dispatch AI-personalized partnership pitches.</p>
+            </div>
+            
+            <div class="flex items-center gap-2 text-xs">
+              <button onclick="selectAllOutreach(true)" class="btn-secondary px-3 py-1.5">Select All</button>
+              <button onclick="selectAllOutreach(false)" class="btn-secondary px-3 py-1.5">Deselect All</button>
+              <button onclick="openBulkPitchModal()" class="btn-teal px-4 py-1.5">Review & Send Selected (<span id="selected-count">0</span>)</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4 w-10"><input type="checkbox" id="master-select-box" onchange="toggleMasterSelect(this)"></th>
+                  <th class="py-3 px-4">Creator</th>
+                  <th class="py-3 px-4">Niche & Audience</th>
+                  <th class="py-3 px-4">Matched Digital Product</th>
+                  <th class="py-3 px-4">Proposed Split</th>
+                  <th class="py-3 px-4">Outreach Status</th>
+                  <th class="py-3 px-4">Last Activity</th>
+                  <th class="py-3 px-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="outreach-table-tbody" class="divide-y divide-slate-100 text-slate-700">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Follow-Up Automation & Responses Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="panel p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-2">Automated Follow-Up Sequences</h3>
+            <p class="text-xs text-slate-500 mb-3">Pre-configured cadence stops immediately when creator responds or unsubscribes.</p>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-slate-800">Sequence Step 1</span>
+                  <span class="text-slate-500 block text-[11px]">Day 3 — Context reminder & proof excerpt</span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Active</span>
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-slate-800">Sequence Step 2</span>
+                  <span class="text-slate-500 block text-[11px]">Day 7 — Revenue projection breakdown ($32k+ net)</span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Active</span>
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-slate-800">Sequence Step 3</span>
+                  <span class="text-slate-500 block text-[11px]">Day 14 — Final closeout / archiving lead</span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-2">Creator Response Inbox</h3>
+            <p class="text-xs text-slate-500 mb-3">Live inbound replies categorized by commercial sentiment:</p>
+            <div class="space-y-2.5 text-xs" id="outreach-replies-inbox">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 6: STOREFRONT & PRODUCTS                                   -->
+      <!-- ============================================================== -->
+      <div id="view-storefront" class="hidden space-y-6">
+        
+        <!-- Published Products & Links Desk -->
+        <div class="panel p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Multi-Creator Storefronts & Referral URLs</h3>
+              <p class="text-xs text-slate-500">Every partner creator gets a unique URL with custom split formulas and attribution.</p>
+            </div>
+            <button onclick="openNewCreatorLinkModal()" class="btn-teal px-4 py-2 text-xs font-bold">+ New Partner Link</button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Creator Partner</th>
+                  <th class="py-3 px-4">Unique Storefront URL</th>
+                  <th class="py-3 px-4">Agreed Split</th>
+                  <th class="py-3 px-4">Selling Price</th>
+                  <th class="py-3 px-4">Sales Volume</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="storefront-links-tbody" class="divide-y divide-slate-100 text-slate-700">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Live Customer-Facing Storefront Preview -->
+        <div class="panel p-6 max-w-3xl mx-auto space-y-6">
+          <div class="text-center space-y-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-teal-50 text-teal-800 font-semibold border border-teal-200">
+              ✨ Co-Created with <span id="sf-preview-creator">Marcus Vance (84K Subs)</span>
+            </span>
+            <h2 id="sf-preview-title" class="text-2xl font-bold text-slate-900 tracking-tight">The 14-Day Agency AI Automation Playbook</h2>
+            <p class="text-xs text-slate-600 max-w-lg mx-auto">Complete operational procedures, 45 production prompts, and pre-configured Notion delivery boards.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-1">What Readers Receive:</h4>
+              <ul class="space-y-1 text-slate-600">
+                <li>• 42-Page Comprehensive A4 Playbook PDF</li>
+                <li>• Bonus 1: 30-Day Execution Companion (12 pgs)</li>
+                <li>• Bonus 2: Client Script Accelerator (14 pgs)</li>
+                <li>• Interactive Notion Project Board</li>
+              </ul>
+            </div>
+            <div class="flex flex-col justify-center items-center p-4 bg-white rounded-lg border border-slate-200">
+              <span class="text-xs text-slate-400 line-through">$197 USD</span>
+              <span class="text-2xl font-black text-slate-900 mt-0.5">$<span id="sf-preview-price">67</span> USD</span>
+              <button onclick="simulateOrderCheckout()" class="btn-teal w-full mt-3 py-2 text-xs font-bold">1-Click Purchase Demo</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 7: SALES & ANALYTICS                                       -->
+      <!-- ============================================================== -->
+      <div id="view-analytics" class="hidden space-y-6">
+        
+        <!-- Guard for Guest Role -->
+        <div id="analytics-guest-shield" class="hidden panel p-12 text-center space-y-3">
+          <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
+          <h3 class="text-base font-bold text-slate-900">Administrator Access Required</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">This financial ledger and revenue distribution center contains confidential merchant data. Guest and Collaborator accounts are restricted from accessing financial ledgers.</p>
+          <button onclick="switchRole('admin')" class="btn-teal px-4 py-2 text-xs">Switch to Administrator Account</button>
+        </div>
+
+        <!-- Full Financial Ledger (Visible to Admin) -->
+        <div id="analytics-admin-content" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="panel p-5">
+              <span class="text-xs font-semibold text-slate-500 uppercase block">Gross Platform Sales</span>
+              <div class="text-2xl font-bold text-slate-900 mt-1" id="an-gross-sales">$34,840</div>
+              <div class="text-xs text-slate-500 mt-1">520 total units sold</div>
+            </div>
+            <div class="panel p-5">
+              <span class="text-xs font-semibold text-slate-500 uppercase block">Creator Commissions Allocated</span>
+              <div class="text-2xl font-bold text-emerald-600 mt-1" id="an-creator-payouts">$24,388</div>
+              <div class="text-xs text-slate-500 mt-1">70% average partner share</div>
+            </div>
+            <div class="panel p-5">
+              <span class="text-xs font-semibold text-slate-500 uppercase block">Platform Net Operating Revenue</span>
+              <div class="text-2xl font-bold text-teal-700 mt-1" id="an-platform-net">$10,452</div>
+              <div class="text-xs text-slate-500 mt-1">30% retained earnings</div>
+            </div>
+          </div>
+
+          <!-- Creator Performance Comparison Table -->
+          <div class="panel p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-slate-900">Creator Performance & Conversion Table</h3>
+              <button onclick="exportAnalyticsCSV()" class="btn-secondary px-3 py-1.5 text-xs">Download CSV Report</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                  <tr>
+                    <th class="py-3 px-4">Creator</th>
+                    <th class="py-3 px-4">Referral Clicks</th>
+                    <th class="py-3 px-4">Orders</th>
+                    <th class="py-3 px-4">Conversion Rate</th>
+                    <th class="py-3 px-4">Gross Revenue</th>
+                    <th class="py-3 px-4">Creator Share</th>
+                    <th class="py-3 px-4">Platform Net</th>
+                    <th class="py-3 px-4">Payout Status</th>
+                  </tr>
+                </thead>
+                <tbody id="analytics-creators-tbody" class="divide-y divide-slate-100 text-slate-700">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 8: ADMINISTRATION                                          -->
+      <!-- ============================================================== -->
+      <div id="view-admin" class="hidden space-y-6">
+        
+        <!-- Guard for Guest Role -->
+        <div id="admin-guest-shield" class="hidden panel p-12 text-center space-y-3">
+          <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
+          <h3 class="text-base font-bold text-slate-900">Administrator Access Required</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">Platform configuration, API connections, and user management require Administrator authorization.</p>
+          <button onclick="switchRole('admin')" class="btn-teal px-4 py-2 text-xs">Switch to Administrator Account</button>
+        </div>
+
+        <div id="admin-content" class="space-y-6">
+          <!-- User & Guest Access Management -->
+          <div class="panel p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">User & Collaborator Access Control</h3>
+                <p class="text-xs text-slate-500">Manage administrator privileges and invite guest collaborators with restricted permissions.</p>
+              </div>
+              <button onclick="openInviteModal()" class="btn-teal px-3 py-1.5 text-xs">+ Invite Collaborator</button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider border-b border-slate-200">
+                  <tr>
+                    <th class="py-3 px-4">User</th>
+                    <th class="py-3 px-4">Assigned Role</th>
+                    <th class="py-3 px-4">Permissions Scope</th>
+                    <th class="py-3 px-4">Financial Access</th>
+                    <th class="py-3 px-4">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-tbody" class="divide-y divide-slate-100 text-slate-700">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- API Connections & Settings -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="panel p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900">Cloud & Database Connections</h3>
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <span class="font-bold text-slate-800">Neon PostgreSQL (Serverless)</span>
+                  <p class="text-[11px] text-slate-500 font-mono mt-0.5">ep-divine-bread-benhktgq-pooler.c-9.us-east-2.aws.neon.tech</p>
+                  <span class="text-[10px] text-emerald-600 font-bold block mt-1">✓ Connection Verified with Pool Pre-Ping</span>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <span class="font-bold text-slate-800">Render Cloud Web Service</span>
+                  <p class="text-[11px] text-slate-500 font-mono mt-0.5">needvane-creator-ai.onrender.com</p>
+                  <span class="text-[10px] text-emerald-600 font-bold block mt-1">✓ Live Deployment (Health Check 200 OK)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900">Email & Payment Gateway Settings</h3>
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex justify-between items-center">
+                  <div>
+                    <span class="font-bold text-slate-800">Lemon Squeezy Merchant of Record</span>
+                    <span class="text-[11px] text-slate-500 block">Global checkout, tax & affiliate payouts</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Connected</span>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex justify-between items-center">
+                  <div>
+                    <span class="font-bold text-slate-800">Paystack Direct African Rails</span>
+                    <span class="text-[11px] text-slate-500 block">NGN / GHS direct bank transfer</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Connected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal: Role Switcher -->
+  <div id="modal-role-switch" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-sm rounded-xl p-5 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">Switch Workspace Role</h3>
+        <button onclick="toggleRoleSwitchModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
+      </div>
+      <p class="text-xs text-slate-600">Select which role perspective you want to experience in the application:</p>
+      <div class="space-y-2">
+        <button onclick="switchRole('admin')" class="w-full text-left p-3 rounded-lg border border-teal-600 bg-teal-50 hover:bg-teal-100/50 transition">
+          <div class="font-bold text-xs text-teal-900">Administrator (Full Access)</div>
+          <div class="text-[11px] text-teal-700 mt-0.5">Complete control over financials, products, settings, and campaigns.</div>
+        </button>
+        <button onclick="switchRole('guest')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+          <div class="font-bold text-xs text-slate-900">Guest / Collaborator (Restricted)</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Read-only view of approved research and drafts. Financials & admin settings are shielded.</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: New Creator Split Link -->
+  <div id="modal-new-creator-link" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-xl p-5 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">Create Unique Creator Partner Link</h3>
+        <button onclick="closeNewCreatorLinkModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Creator Partner Name</label>
+          <input id="modal-c-name" type="text" placeholder="e.g. Sarah Jenkins (92K Subs)" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-teal-600">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Referral Code Slug</label>
+          <input id="modal-c-slug" type="text" placeholder="sarah_92k" class="w-full border border-slate-300 rounded-lg p-2 font-mono focus:outline-none focus:border-teal-600">
+        </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-slate-400 uppercase font-semibold mb-1">Creator Split (%)</label>
-            <select id="modal-creator-split" onchange="updateSplitPreview()" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500">
-              <option value="70">70% Creator / 30% Us (Standard)</option>
+            <label class="block font-semibold text-slate-600 mb-1">Creator Split (%)</label>
+            <select id="modal-c-split" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-teal-600">
+              <option value="70">70% Creator / 30% Us</option>
+              <option value="65">65% Creator / 35% Us</option>
+              <option value="80">80% Creator / 20% Us</option>
               <option value="60">60% Creator / 40% Us</option>
-              <option value="80">80% Creator / 20% Us (High Leverage)</option>
-              <option value="50">50% Creator / 50% Us</option>
             </select>
           </div>
           <div>
-            <label class="block text-slate-400 uppercase font-semibold mb-1">Custom Selling Price ($)</label>
-            <input id="modal-creator-price" type="number" value="67" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-brand-500">
-          </div>
-        </div>
-
-        <div class="p-3 rounded-xl bg-dark-850 border border-slate-800 text-[11px] space-y-1">
-          <div class="text-slate-400">Estimated Split per $67 Sale:</div>
-          <div class="flex justify-between font-bold">
-            <span class="text-accent-emerald">Creator: $46.90 (70%)</span>
-            <span class="text-brand-400">NeedVane: $20.10 (30%)</span>
+            <label class="block font-semibold text-slate-600 mb-1">Price Point ($)</label>
+            <input id="modal-c-price" type="number" value="67" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-teal-600">
           </div>
         </div>
       </div>
-
-      <div class="pt-2 flex items-center justify-end gap-2">
-        <button onclick="saveNewCreatorLink()" class="px-5 py-2.5 rounded-xl bg-accent-emerald hover:bg-emerald-600 font-bold text-xs text-white transition shadow-lg shadow-emerald-500/20">
-          Activate & Copy Unique URL
-        </button>
-        <button onclick="closeNewCreatorModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">
-          Cancel
-        </button>
+      <div class="pt-2 flex justify-end gap-2">
+        <button onclick="saveNewCreatorLink()" class="btn-teal px-4 py-2 text-xs">Generate Link</button>
+        <button onclick="closeNewCreatorLinkModal()" class="btn-secondary px-3 py-2 text-xs">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= CHECKOUT MODAL ================= -->
-  <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-white/10 space-y-4 glow-indigo">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Complete Secure Purchase</h3>
-        <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-white text-lg font-bold">&times;</button>
+  <!-- Modal: Bulk Pitch Review -->
+  <div id="modal-bulk-pitch" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-xl p-5 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">Review & Approve Personalized Outreach</h3>
+        <button onclick="closeBulkPitchModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
       </div>
-
-      <div class="text-xs text-slate-400">
-        Product: <strong id="modal-product-name" class="text-slate-200">The 14-Day Agency AI Automation Playbook</strong> (<span id="modal-product-price" class="text-accent-emerald font-bold">$67</span>)
-      </div>
-
-      <div class="space-y-3">
-        <div>
-          <label class="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Full Name</label>
-          <input id="checkout-name" type="text" value="Alexander Vance" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
-        </div>
-        <div>
-          <label class="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Email Address</label>
-          <input id="checkout-email" type="email" value="alexander@venturelabs.co" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+      <p class="text-xs text-slate-600">Previewing the personalized co-creation email template before dispatching to selected creators:</p>
+      
+      <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-2 text-xs font-mono">
+        <div><strong>Subject:</strong> Partnership: Co-Creating the 14-Day Agency Automation Playbook (70/30 Split)</div>
+        <div class="text-slate-600 leading-relaxed text-[11px]">
+          "Hey {Creator_Name},<br><br>
+          We observed recurring questions in your comment section asking for the exact execution SOPs for your automation workflows.<br><br>
+          We have engineered the complete 42-page publication-ready digital product with Notion delivery vaults. We propose a co-creation partnership: you provide the link to your community, we handle 100% of the tech and fulfillment, and you receive 70% of gross sales."
         </div>
       </div>
 
-      <div id="checkout-result-box" class="hidden p-3 rounded-xl bg-accent-emerald/10 border border-accent-emerald/30 text-xs text-accent-emerald">
-        🎉 <strong>Payment Approved!</strong> 42-page PDF and Notion vault access dispatched! Creator revenue split credited.
-      </div>
-
-      <div class="pt-2 flex items-center gap-2">
-        <button onclick="submitTestOrder()" id="btn-submit-order" class="w-full py-2.5 rounded-xl bg-accent-emerald hover:bg-emerald-600 font-bold text-xs text-white transition shadow-lg shadow-emerald-500/20">
-          Pay & Download Now
-        </button>
-        <button onclick="closeCheckoutModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">
-          Cancel
-        </button>
+      <div class="pt-2 flex justify-end gap-2 text-xs">
+        <button onclick="confirmDispatchPitches()" class="btn-teal px-4 py-2">Approve & Dispatch via NeedVane Queue</button>
+        <button onclick="closeBulkPitchModal()" class="btn-secondary px-3 py-2">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= SETTINGS MODAL ================= -->
-  <div id="settings-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-white/10 space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Backend Connection Settings</h3>
-        <button onclick="toggleSettingsModal()" class="text-slate-400 hover:text-white text-lg font-bold">&times;</button>
-      </div>
-      <div>
-        <label class="block text-[11px] text-slate-400 uppercase font-semibold mb-1">Backend API Base URL</label>
-        <input id="api-base-url-input" type="text" value="https://needvane-creator-ai.onrender.com" class="w-full bg-dark-850 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono focus:outline-none focus:border-brand-500">
-      </div>
-      <div class="flex items-center justify-end gap-2 pt-2">
-        <button onclick="saveApiUrl()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-xs text-white">
-          Save Settings
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= FOOTER ================= -->
-  <footer class="border-t border-white/5 py-6 px-4 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div>NeedVane Creator AI © 2026. Production Co-Creation Engine.</div>
-      <div class="flex items-center gap-4">
-        <a href="/docs" target="_blank" class="hover:text-slate-300">API Documentation</a>
-        <a href="/api/v1/health" target="_blank" class="hover:text-slate-300">System Health</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ================= JAVASCRIPT STATE ENGINE ================= -->
+  <!-- ================= APPLICATION JAVASCRIPT STATE ENGINE ================= -->
   <script>
-    let API_BASE_URL = localStorage.getItem('needvane_api_url') || 'https://needvane-creator-ai.onrender.com';
-    let currentNiche = 'wealth';
-    let currentStep = 1;
-    let selectedCreator = null;
-    let selectedDemand = null;
+    // Global User & Role State
+    let currentUserRole = 'admin'; // 'admin' or 'guest'
+    let currentMainTab = 'overview';
+    let currentSubTabs = {
+      'overview': 'summary',
+      'market-intel': 'general',
+      'creators': 'discovery',
+      'studio': 'workspace',
+      'outreach': 'database',
+      'storefront': 'links',
+      'analytics': 'overall',
+      'admin': 'users'
+    };
 
-    // Master Niche Database: 50k–150k Creator Focus
-    const NICHE_DATA = {
-      wealth: [
-        {
-          id: "cr-w1",
-          name: "Marcus Vance",
-          handle: "@MarcusVanceOps",
-          platform: "YouTube",
-          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-          followers: "84K",
-          niche: "Agency AI Automations",
-          avgViews: "24K",
-          engagement: "11.8%",
-          frustrationTopic: "Followers begging for step-by-step SOPs on automating client delivery",
-          comments: [
-            { author: "Kieran B.", text: "Marcus, your breakdown of automated onboarding was fire, but can you just share your exact Notion template and Zapier scripts? I would easily pay $50 for this.", urgency: "High", willingness: "$50" },
-            { author: "Liam Keller", text: "I've tried building this AI system 3 times and get stuck on error handling. Give us an actionable 14-day blueprint please!", urgency: "Urgent", willingness: "$97" },
-            { author: "AgencyDev", text: "Would save me 20 hours a week if I had your prompt library for onboarding.", urgency: "High", willingness: "$67" }
-          ],
-          demands: [
-            {
-              id: "dem-w1",
-              rank: 1,
-              title: "The 14-Day Agency AI Automation Playbook & Notion Vault",
-              score: 96,
-              pages: 42,
-              price: 67,
-              estRev: "$46,900",
-              category: "Operational SOPs",
-              formulaBreakdown: "Urgency: 98% | Willingness: $67 | 40-Page Fit: 100% | Low Saturation",
-              quote: "Need an exact day-by-day SOP blueprint instead of generic tutorials."
-            },
-            {
-              id: "dem-w2",
-              rank: 2,
-              title: "High-Ticket Client Inbound & Cold Sequence Vault",
-              score: 89,
-              pages: 38,
-              price: 47,
-              estRev: "$32,900",
-              category: "Sales Sequences",
-              formulaBreakdown: "Urgency: 88% | Willingness: $47 | 40-Page Fit: 95% | Medium Saturation",
-              quote: "Willing to buy the cold pitch sequences that actually book calls."
-            },
-            {
-              id: "dem-w3",
-              rank: 3,
-              title: "The 7-Figure Operator Prompt Vault (45 Tested Systems)",
-              score: 84,
-              pages: 36,
-              price: 37,
-              estRev: "$25,900",
-              category: "AI Prompts",
-              formulaBreakdown: "Urgency: 82% | Willingness: $37 | 40-Page Fit: 90% | High Market Demand",
-              quote: "Where can I copy-paste your exact prompt workflows?"
-            }
-          ]
-        },
-        {
-          id: "cr-w2",
-          name: "Elena Rostova",
-          handle: "@ElenaRostovaOps",
-          platform: "YouTube & X",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-          followers: "112K",
-          niche: "Solopreneur Systems & Notion",
-          avgViews: "38K",
-          engagement: "10.4%",
-          frustrationTopic: "Audience struggling to organize chaotic business data into 1 dashboard",
-          comments: [
-            { author: "Sarah Jenkins", text: "Elena, I would buy your complete business dashboard in a heartbeat. Setting it up myself took 3 weeks and it's still broken.", urgency: "High", willingness: "$77" }
-          ],
-          demands: [
-            {
-              id: "dem-w4",
-              rank: 1,
-              title: "The 1-Person Business Operating System (Notion + 38-Page SOP)",
-              score: 95,
-              pages: 38,
-              price: 77,
-              estRev: "$53,900",
-              category: "Business Architecture",
-              formulaBreakdown: "Urgency: 95% | Willingness: $77 | 40-Page Fit: 98% | Low Saturation",
-              quote: "Need a complete pre-configured workspace with operational SOPs."
-            }
-          ]
-        }
+    // Sub-Tab Definitions
+    const SUBTABS_CONFIG = {
+      'overview': [
+        { id: 'summary', label: 'Dashboard Summary' },
+        { id: 'projects', label: 'Recent Projects' },
+        { id: 'saved-opps', label: 'Saved Opportunities' },
+        { id: 'active-jobs', label: 'Active Production Jobs' },
+        { id: 'partnerships', label: 'Creator Partnerships' },
+        { id: 'sales-perf', label: 'Sales Performance' },
+        { id: 'notifications', label: 'Notifications' },
+        { id: 'system-act', label: 'System Activity' }
       ],
-      health: [
-        {
-          id: "cr-h1",
-          name: "Dr. Ryan Cole",
-          handle: "@DrRyanBiohack",
-          platform: "YouTube",
-          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
-          followers: "95K",
-          niche: "Biohacking & Sleep Optimization",
-          avgViews: "31K",
-          engagement: "9.2%",
-          frustrationTopic: "Followers confused about supplement stacking protocols and biomarker tracking",
-          comments: [
-            { author: "Michael T.", text: "Doc, there is so much conflicting advice online. Can you just write a master protocol checklist for deep sleep and morning cortisol?", urgency: "High", willingness: "$49" }
-          ],
-          demands: [
-            {
-              id: "dem-h1",
-              rank: 1,
-              title: "The 30-Day Circadian & Deep Sleep Architecture (40-Page Protocol)",
-              score: 97,
-              pages: 40,
-              price: 49,
-              estRev: "$39,200",
-              category: "Sleep Medicine",
-              formulaBreakdown: "Urgency: 99% | Willingness: $49 | 40-Page Fit: 100% | High Consumer Trust",
-              quote: "Give us the exact protocol checklist without the medical jargon."
-            }
-          ]
-        }
+      'market-intel': [
+        { id: 'general', label: 'General Problem Discovery' },
+        { id: 'niche', label: 'Niche-Based Discovery' },
+        { id: 'creator', label: 'Creator-Based Discovery' },
+        { id: 'rankings', label: 'Opportunity Rankings (7/8 Score)' },
+        { id: 'saved', label: 'Saved Research' },
+        { id: 'competitor', label: 'Competitor Intelligence' }
       ],
-      relationships: [
-        {
-          id: "cr-r1",
-          name: "James Sterling",
-          handle: "@JamesSterlingDating",
-          platform: "YouTube & TikTok",
-          avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&auto=format&fit=crop&q=80",
-          followers: "72K",
-          niche: "Modern Dating & Social Dynamics",
-          avgViews: "45K",
-          engagement: "14.1%",
-          frustrationTopic: "Men struggling with texting paralysis and high-value conversation starters",
-          comments: [
-            { author: "David Ross", text: "James, your conversation breakdowns are insane. Do you have a playbook of actual conversational frameworks and message examples?", urgency: "Urgent", willingness: "$39" }
-          ],
-          demands: [
-            {
-              id: "dem-r1",
-              rank: 1,
-              title: "The High-Value Conversation & Social Calibration Playbook (36 Pages)",
-              score: 94,
-              pages: 36,
-              price: 39,
-              estRev: "$31,200",
-              category: "Social Dynamics",
-              formulaBreakdown: "Urgency: 96% | Willingness: $39 | 40-Page Fit: 95% | Hyper-Engaged Niche",
-              quote: "Need real breakdowns of conversation flows and calibration rules."
-            }
-          ]
-        }
+      'creators': [
+        { id: 'discovery', label: 'Creator Discovery (50k–150k)' },
+        { id: 'matching', label: 'Creator Matching' },
+        { id: 'opportunities', label: 'Partnership Opportunities' },
+        { id: 'campaigns', label: 'Distribution Campaigns' },
+        { id: 'saved-db', label: 'Saved Creator Database' }
       ],
-      ai: [
-        {
-          id: "cr-a1",
-          name: "Devon Reed",
-          handle: "@DevonReedAI",
-          platform: "YouTube",
-          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
-          followers: "128K",
-          niche: "Autonomous AI Agents & APIs",
-          avgViews: "52K",
-          engagement: "12.5%",
-          frustrationTopic: "Developers struggling to deploy multi-agent workflows without cloud bills exploding",
-          comments: [
-            { author: "Alex Chen", text: "Can you publish the full GitHub repo and architecture PDF for the agent orchestration you demoed?", urgency: "Urgent", willingness: "$89" }
-          ],
-          demands: [
-            {
-              id: "dem-a1",
-              rank: 1,
-              title: "Multi-Agent System Blueprint: Production Code & Architecture (44 Pages)",
-              score: 98,
-              pages: 44,
-              price: 89,
-              estRev: "$71,200",
-              category: "Agent Architecture",
-              formulaBreakdown: "Urgency: 99% | Willingness: $89 | 40-Page Fit: 100% | Ultra-High B2B Value",
-              quote: "Need the production architecture code and cost optimization playbook."
-            }
-          ]
-        }
+      'studio': [
+        { id: 'workspace', label: 'Product Workspace' },
+        { id: 'blueprint', label: 'Product Blueprint' },
+        { id: 'chapters', label: 'Chapter Development' },
+        { id: 'bonuses', label: 'Bonus Product Studio' },
+        { id: 'visual', label: 'Visual Design Studio' },
+        { id: 'monitor', label: 'Production Monitor' },
+        { id: 'preview', label: 'PDF Preview & Approval' }
       ],
-      mindset: [
-        {
-          id: "cr-m1",
-          name: "Lucas Grey",
-          handle: "@LucasGreyFocus",
-          platform: "YouTube",
-          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
-          followers: "64K",
-          niche: "Deep Focus & Neuro-Productivity",
-          avgViews: "22K",
-          engagement: "11.1%",
-          frustrationTopic: "Procrastination loops and dopamine detox routines",
-          comments: [
-            { author: "Chloe Martin", text: "Lucas, I would pay for a daily 2-hour deep work protocol workbook that keeps me accountable.", urgency: "High", willingness: "$47" }
-          ],
-          demands: [
-            {
-              id: "dem-m1",
-              rank: 1,
-              title: "The 2-Hour Deep Focus Operating Protocol & Daily Workbook (38 Pages)",
-              score: 92,
-              pages: 38,
-              price: 47,
-              estRev: "$28,200",
-              category: "Neuro-Productivity",
-              formulaBreakdown: "Urgency: 93% | Willingness: $47 | 40-Page Fit: 95% | Strong Community",
-              quote: "Need an actionable daily protocol to kill distractions."
-            }
-          ]
-        }
+      'outreach': [
+        { id: 'database', label: 'Creator Contact Database' },
+        { id: 'campaigns', label: 'Email Campaigns' },
+        { id: 'selection', label: 'Outreach Selection' },
+        { id: 'sent', label: 'Sent Emails' },
+        { id: 'followup', label: 'Follow-up Automation' },
+        { id: 'inbox', label: 'Response Inbox' },
+        { id: 'negotiations', label: 'Partnership Negotiations' }
+      ],
+      'storefront': [
+        { id: 'links', label: 'Creator Referral Links' },
+        { id: 'published', label: 'Published Products' },
+        { id: 'landing', label: 'Product Landing Pages' },
+        { id: 'download', label: 'Download Management' },
+        { id: 'pricing', label: 'Pricing Management' },
+        { id: 'revenue', label: 'Revenue Sharing' }
+      ],
+      'analytics': [
+        { id: 'overall', label: 'Overall Sales' },
+        { id: 'creator-perf', label: 'Creator Performance' },
+        { id: 'conversion', label: 'Referral Conversion' },
+        { id: 'distribution', label: 'Revenue Distribution' },
+        { id: 'ledger', label: 'Payment Ledger' },
+        { id: 'reconciliation', label: 'Refunds & Reconciliation' }
+      ],
+      'admin': [
+        { id: 'users', label: 'User Management' },
+        { id: 'guest', label: 'Guest Access' },
+        { id: 'roles', label: 'Roles & Permissions' },
+        { id: 'api', label: 'API Connections' },
+        { id: 'ai-provider', label: 'AI Provider Config' },
+        { id: 'email-config', label: 'Email Configuration' },
+        { id: 'payment-settings', label: 'Payment Settings' },
+        { id: 'health', label: 'System Health' },
+        { id: 'audit', label: 'Audit Logs' }
       ]
     };
 
-    // Active Partner Split Links Table State
-    let partnerLinks = [
+    // 20+ Niche Directory Data
+    const NICHES_LIST = [
+      "Health & Wellness", "Weight Management", "Blood Sugar Management",
+      "Relationships & Dating", "Marriage & Family", "Parenting",
+      "Education", "Career Development", "Remote Employment",
+      "Business Growth", "Agency Development", "Marketing & Inbound",
+      "Sales Systems", "Artificial Intelligence", "Workflow Automation",
+      "Productivity & Systems", "Personal Finance", "Personal Development",
+      "Technology & Dev", "Lifestyle & Longevity", "Modern Agriculture"
+    ];
+
+    // Master Creator Data (50k–150k Followers Focus)
+    let creatorsList = [
       {
-        creator: "Marcus Vance",
-        subs: "84K",
-        slug: "marcus_vance_84k",
-        splitFormula: "70% Creator / 30% NeedVane",
-        creatorPct: 70,
-        price: 67,
-        sales: 284,
-        creatorPayout: "$13,319",
-        yourShare: "$5,708",
-        status: "Active"
+        id: "c1",
+        name: "Marcus Vance",
+        handle: "@MarcusVanceOps",
+        platform: "YouTube & IG",
+        followers: "84,200",
+        followersNum: 84200,
+        niche: "agency",
+        engagement: "11.8%",
+        category: "Agency Automation",
+        email: "marcus@vancegrowth.co",
+        matchedProduct: "The 14-Day Agency AI Automation Playbook",
+        split: "70% Creator / 30% Us",
+        status: "Accepted & Live",
+        lastActivity: "2h ago",
+        relevanceScore: 98,
+        selected: false
       },
       {
-        creator: "Elena Rostova",
-        subs: "112K",
-        slug: "elena_rostova_112k",
-        splitFormula: "65% Creator / 35% NeedVane",
-        creatorPct: 65,
-        price: 67,
-        sales: 340,
-        creatorPayout: "$14,807",
-        yourShare: "$7,973",
-        status: "Active"
+        id: "c2",
+        name: "Elena Rostova",
+        handle: "@ElenaRostovaOps",
+        platform: "Instagram & X",
+        followers: "112,500",
+        followersNum: 112500,
+        niche: "agency",
+        engagement: "10.4%",
+        category: "Solopreneur Notion OS",
+        email: "partners@elenarostova.io",
+        matchedProduct: "The 1-Person Business Operating System",
+        split: "65% Creator / 35% Us",
+        status: "Replied / Interested",
+        lastActivity: "14m ago",
+        relevanceScore: 96,
+        selected: false
       },
       {
-        creator: "Liam Keller (Kindred Partner)",
-        subs: "61K",
-        slug: "liam_keller_61k",
-        splitFormula: "75% Creator / 25% NeedVane",
-        creatorPct: 75,
-        price: 67,
-        sales: 112,
-        creatorPayout: "$5,628",
-        yourShare: "$1,876",
-        status: "Active"
+        id: "c3",
+        name: "Dr. Ryan Cole",
+        handle: "@DrRyanBiohack",
+        platform: "YouTube",
+        followers: "95,000",
+        followersNum: 95000,
+        niche: "health",
+        engagement: "9.2%",
+        category: "Circadian Sleep Protocols",
+        email: "contact@drryancole.com",
+        matchedProduct: "The 30-Day Circadian Protocol",
+        split: "70% Creator / 30% Us",
+        status: "Pitched / Waiting",
+        lastActivity: "1d ago",
+        relevanceScore: 94,
+        selected: false
+      },
+      {
+        id: "c4",
+        name: "James Sterling",
+        handle: "@JamesSterlingDating",
+        platform: "Instagram & TikTok",
+        followers: "72,800",
+        followersNum: 72800,
+        niche: "relationships",
+        engagement: "14.1%",
+        category: "Social Dynamics",
+        email: "booking@jamessterling.co",
+        matchedProduct: "High-Value Conversation Playbook",
+        split: "75% Creator / 25% Us",
+        status: "Negotiating",
+        lastActivity: "3d ago",
+        relevanceScore: 92,
+        selected: false
+      },
+      {
+        id: "c5",
+        name: "Devon Reed",
+        handle: "@DevonReedAI",
+        platform: "YouTube",
+        followers: "128,400",
+        followersNum: 128400,
+        niche: "ai",
+        engagement: "12.5%",
+        category: "Multi-Agent Architecture",
+        email: "devon@autonomousai.dev",
+        matchedProduct: "Production Multi-Agent Blueprint",
+        split: "70% Creator / 30% Us",
+        status: "Pitched / Waiting",
+        lastActivity: "Yesterday",
+        relevanceScore: 97,
+        selected: false
       }
     ];
 
-    // Creator Outreach CRM Pipeline State
-    let outreachDeals = {
-      pitched: [
-        { name: "Devon Reed (128K Subs)", topic: "Multi-Agent Architecture Playbook", date: "Yesterday", status: "Awaiting Reply" },
-        { name: "Lucas Grey (64K Subs)", topic: "2-Hour Deep Focus Protocol", date: "2 days ago", status: "Email Opened (2x)" }
-      ],
-      interested: [
-        { name: "Elena Rostova (112K Subs)", topic: "Agency AI Sprint", replySnippet: "Identified the exact headache! Love the 70/30 split, send link!", status: "Ready to Activate" },
-        { name: "Dr. Ryan Cole (95K Subs)", topic: "Circadian Sleep Protocol", replySnippet: "I'd love to review the 40-page draft this Friday.", status: "In Discussion" }
-      ],
-      signed: [
-        { name: "Marcus Vance (84K Subs)", topic: "Agency AI Sprint", revTotal: "$19,027", status: "Live & Selling" },
-        { name: "Liam Keller (61K Subs)", topic: "Agency AI Sprint", revTotal: "$7,504", status: "Live & Selling" }
-      ],
-      declined: [
-        { name: "Legacy Creator", topic: "General Advice", date: "Last week", status: "Booked with Sponsor" }
-      ]
-    };
+    // Master Partner Links State
+    let partnerLinks = [
+      {
+        creator: "Marcus Vance",
+        slug: "marcus_vance_84k",
+        split: "70% / 30%",
+        price: 67,
+        sales: 284,
+        status: "Live"
+      },
+      {
+        creator: "Elena Rostova",
+        slug: "elena_rostova_112k",
+        split: "65% / 35%",
+        price: 67,
+        sales: 142,
+        status: "Live"
+      },
+      {
+        creator: "Liam Keller",
+        slug: "liam_keller_61k",
+        split: "75% / 25%",
+        price: 67,
+        sales: 94,
+        status: "Live"
+      }
+    ];
 
-    // Initialize
+    // Master Production Monitor Steps (10 Steps)
+    let productionMonitorSteps = [
+      { step: 1, name: "Research Verification", status: "Completed", icon: "✓" },
+      { step: 2, name: "Product Outline & Budget", status: "Completed", icon: "✓" },
+      { step: 3, name: "Chapter Writing (42 Pages)", status: "Completed", icon: "✓" },
+      { step: 4, name: "Content Editing & Fact Check", status: "Completed", icon: "✓" },
+      { step: 5, name: "Worksheet & Template Gen", status: "Completed", icon: "✓" },
+      { step: 6, name: "Visual Covers & Illustrations", status: "Completed", icon: "✓" },
+      { step: 7, name: "Layout & WCAG Formatting", status: "Completed", icon: "✓" },
+      { step: 8, name: "PDF Compilation (FPDF2)", status: "Completed", icon: "✓" },
+      { step: 9, name: "Quality Assurance (Rubric ≥ 90)", status: "Completed", icon: "✓" },
+      { step: 10, name: "Final Deliverable Preparation", status: "Completed", icon: "✓" }
+    ];
+
+    // On DOM Load
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('api-base-url-input').value = API_BASE_URL;
-      renderNicheCreators();
-      renderPartnerLinksTable();
-      renderOutreachCRM();
-      selectCreator(NICHE_DATA[currentNiche][0].id, false);
+      renderSubTabs('overview');
+      populateOverviewData();
+      populateNicheChips();
+      renderCreatorsDirectory(creatorsList);
+      renderStudioChapters();
+      renderProductionMonitor();
+      renderOutreachTable();
+      renderOutreachInbox();
+      renderStorefrontLinks();
+      renderAnalyticsTable();
+      renderAdminUsers();
+      enforceRolePermissions();
     });
 
-    // Niche Switching
-    function changeNiche(nicheKey) {
-      currentNiche = nicheKey;
-      ['wealth', 'health', 'relationships', 'ai', 'mindset'].forEach(k => {
-        const btn = document.getElementById(`niche-btn-${k}`);
-        if (k === nicheKey) {
-          btn.className = "px-3 py-1.5 rounded-lg bg-brand-600/30 border border-brand-500 text-white font-semibold transition whitespace-nowrap flex items-center gap-1.5";
+    // Sidebar Navigation Switching
+    function switchMainTab(tabId) {
+      currentMainTab = tabId;
+
+      // Update Nav Button Styles
+      ['overview', 'market-intel', 'creators', 'studio', 'outreach', 'storefront', 'analytics', 'admin'].forEach(t => {
+        const btn = document.getElementById(`nav-tab-${t}`);
+        const view = document.getElementById(`view-${t}`);
+        if (t === tabId) {
+          btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white bg-slate-800 transition";
+          btn.querySelector('svg').classList.add('text-teal-400');
+          if (view) view.classList.remove('hidden');
         } else {
-          btn.className = "px-3 py-1.5 rounded-lg bg-dark-850 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition whitespace-nowrap flex items-center gap-1.5";
+          btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition";
+          btn.querySelector('svg').classList.remove('text-teal-400');
+          if (view) view.classList.add('hidden');
         }
       });
-      renderNicheCreators();
-      selectCreator(NICHE_DATA[currentNiche][0].id, false);
+
+      // Update Header Title
+      const titles = {
+        'overview': 'Overview',
+        'market-intel': 'Market Intelligence & Discovery',
+        'creators': 'Creator Distribution & Matching',
+        'studio': 'Product Creation Studio',
+        'outreach': 'Creator Outreach & Follow-up CRM',
+        'storefront': 'Storefronts & Published Products',
+        'analytics': 'Sales Tracking & Revenue Analytics',
+        'admin': 'Administration & Workspace Settings'
+      };
+      document.getElementById('current-view-title').textContent = titles[tabId] || 'Overview';
+
+      // Re-render Sub-tabs
+      renderSubTabs(tabId);
+      enforceRolePermissions();
     }
 
-    // Render Niche Creators (50k–150k Focus)
-    function renderNicheCreators() {
-      const creators = NICHE_DATA[currentNiche] || [];
-      const grid = document.getElementById('creators-grid');
-      
-      grid.innerHTML = creators.map(c => `
-        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-accent-cyan/15 text-accent-cyan border border-accent-cyan/25">
-                50k–150k Mid-Tier Target
-              </span>
-              <span class="text-xs font-semibold text-accent-emerald">★ Engagement: ${c.engagement}</span>
-            </div>
+    // Render Sub-Tabs Bar
+    function renderSubTabs(mainTabId) {
+      const bar = document.getElementById('subtab-bar');
+      const tabs = SUBTABS_CONFIG[mainTabId] || [];
+      const activeSub = currentSubTabs[mainTabId] || tabs[0]?.id;
 
-            <div class="flex items-center gap-3.5 mt-4">
-              <img src="${c.avatar}" class="w-12 h-12 rounded-full object-cover border border-slate-700 shadow-md">
-              <div>
-                <h3 class="font-extrabold text-base text-white tracking-tight">${c.name}</h3>
-                <p class="text-xs text-slate-400">${c.handle} · <span class="text-accent-emerald font-bold">${c.followers} Followers</span></p>
-              </div>
-            </div>
-
-            <div class="mt-4 p-3 rounded-xl bg-dark-850/80 border border-slate-800 space-y-1.5">
-              <div class="text-[10px] uppercase font-bold text-accent-amber flex items-center gap-1.5">
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                Audience Pain Point Detected:
-              </div>
-              <p class="text-xs text-slate-300 leading-snug font-medium">${c.frustrationTopic}</p>
-            </div>
-          </div>
-
-          <button onclick="selectCreatorAndMine('${c.id}')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-violet hover:opacity-90 font-bold text-xs text-white transition flex items-center justify-center gap-2 shadow-md shadow-brand-500/20">
-            <span>⚡ Mine Comments & Extract Top 3 Demands</span>
-            <span>→</span>
-          </button>
-        </div>
+      bar.innerHTML = tabs.map(t => `
+        <button onclick="switchSubTab('${mainTabId}', '${t.id}')" class="tab-pill ${t.id === activeSub ? 'active' : 'inactive'} whitespace-nowrap">
+          ${t.label}
+        </button>
       `).join('');
     }
 
-    // Trigger Autonomous Surfer
-    function triggerAutonomousSurfer() {
-      const btn = document.getElementById('btn-surf-web');
-      btn.innerHTML = `<span class="animate-spin">🌐</span> Surfing Google & YouTube for 50k–150k Creators...`;
+    // Switch Contextual Sub-Tab
+    function switchSubTab(mainTabId, subTabId) {
+      currentSubTabs[mainTabId] = subTabId;
+      renderSubTabs(mainTabId);
+
+      // Handle sub-view switching for Market Intel
+      if (mainTabId === 'market-intel') {
+        ['general', 'niche', 'creator', 'rankings', 'saved'].forEach(s => {
+          const el = document.getElementById(`subview-market-intel-${s}`);
+          if (el) {
+            if (s === subTabId) el.classList.remove('hidden');
+            else el.classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    // Role-Based Access Control (Admin vs Guest)
+    function switchRole(role) {
+      currentUserRole = role;
+      document.getElementById('current-user-role-label').textContent = role === 'admin' ? 'Administrator' : 'Guest Collaborator';
+      document.getElementById('header-user-name').textContent = role === 'admin' ? 'Platform Admin' : 'Guest Reviewer';
+      document.getElementById('header-user-role').textContent = role === 'admin' ? 'Full Workspace Control' : 'Read-Only Project Access';
+      document.getElementById('header-avatar-initials').textContent = role === 'admin' ? 'AD' : 'GU';
+      document.getElementById('role-status-dot').className = role === 'admin' ? 'w-2 h-2 rounded-full bg-emerald-500' : 'w-2 h-2 rounded-full bg-amber-500';
+      
+      toggleRoleSwitchModal();
+      enforceRolePermissions();
+    }
+
+    function enforceRolePermissions() {
+      const isGuest = (currentUserRole === 'guest');
+
+      // Shield Analytics Ledger for Guest
+      const anShield = document.getElementById('analytics-guest-shield');
+      const anContent = document.getElementById('analytics-admin-content');
+      if (anShield && anContent) {
+        if (isGuest) {
+          anShield.classList.remove('hidden');
+          anContent.classList.add('hidden');
+        } else {
+          anShield.classList.add('hidden');
+          anContent.classList.remove('hidden');
+        }
+      }
+
+      // Shield Admin Tab for Guest
+      const admShield = document.getElementById('admin-guest-shield');
+      const admContent = document.getElementById('admin-content');
+      if (admShield && admContent) {
+        if (isGuest) {
+          admShield.classList.remove('hidden');
+          admContent.classList.add('hidden');
+        } else {
+          admShield.classList.add('hidden');
+          admContent.classList.remove('hidden');
+        }
+      }
+    }
+
+    function toggleRoleSwitchModal() {
+      document.getElementById('modal-role-switch').classList.toggle('hidden');
+    }
+
+    // Overview Tab Population
+    function populateOverviewData() {
+      const projects = [
+        { name: "The 14-Day Agency AI Automation Playbook", niche: "Agency & Wealth", status: "Live & Selling", rev: "$19,028" },
+        { name: "The 30-Day Circadian & Sleep Protocol", niche: "Health & Biohacking", status: "Reviewing Draft", rev: "$8,420" },
+        { name: "The High-Value Conversation Playbook", niche: "Relationships", status: "Negotiating Deals", rev: "$7,392" }
+      ];
+      document.getElementById('ov-projects-list').innerHTML = projects.map(p => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">${p.name}</span>
+            <span class="text-[11px] text-slate-500">${p.niche}</span>
+          </div>
+          <div class="text-right">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-200">${p.status}</span>
+            <span class="text-slate-700 font-bold block mt-0.5">${p.rev}</span>
+          </div>
+        </div>
+      `).join('');
+
+      const jobs = [
+        { job: "PDF Compilation (42 Pages)", product: "Agency Automation", progress: "100%", status: "Complete" },
+        { job: "Bonus A Implementation Companion", product: "Sleep Protocol", progress: "85%", status: "In Progress" },
+        { job: "Rubric QA Assessment", product: "Social Dynamics", progress: "100%", status: "Score: 96/100" }
+      ];
+      document.getElementById('ov-jobs-list').innerHTML = jobs.map(j => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block">${j.job}</span>
+            <span class="text-[11px] text-slate-500">${j.product}</span>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-700">${j.status}</span>
+        </div>
+      `).join('');
+
+      const creatorsTable = [
+        { name: "Marcus Vance", plat: "YouTube (84K)", prod: "Agency Playbook", split: "70/30", units: 284, cPayout: "$13,319", pNet: "$5,709" },
+        { name: "Elena Rostova", plat: "Instagram (112K)", prod: "Agency Playbook", split: "65/35", units: 142, cPayout: "$6,183", pNet: "$3,331" },
+        { name: "Liam Keller", plat: "YouTube (61K)", prod: "Agency Playbook", split: "75/25", units: 94, cPayout: "$4,723", pNet: "$1,575" }
+      ];
+      document.getElementById('ov-creators-tbody').innerHTML = creatorsTable.map(c => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-4 font-bold text-slate-900">${c.name}</td>
+          <td class="py-3 px-4 text-slate-600">${c.plat}</td>
+          <td class="py-3 px-4 font-medium text-slate-800">${c.prod}</td>
+          <td class="py-3 px-4 text-teal-700 font-semibold">${c.split}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">${c.units}</td>
+          <td class="py-3 px-4 text-emerald-600 font-bold">${c.cPayout}</td>
+          <td class="py-3 px-4 text-slate-800 font-bold">${c.pNet}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Niche Chips Population
+    function populateNicheChips() {
+      const container = document.getElementById('niche-chips-container');
+      container.innerHTML = NICHES_LIST.map((n, idx) => `
+        <label class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100/80 cursor-pointer flex items-center gap-2 transition">
+          <input type="checkbox" name="niche-select" value="${n}" ${idx < 3 ? 'checked' : ''} class="rounded text-teal-600 focus:ring-teal-500">
+          <span class="text-xs font-medium text-slate-800">${n}</span>
+        </label>
+      `).join('');
+    }
+
+    // General Problem Discovery Engine (14 Detailed Fields)
+    function runGeneralDiscovery() {
+      const query = document.getElementById('general-search-query').value.trim() || "Agency Operations & AI Automations";
+      const btn = document.getElementById('btn-run-general');
+      btn.innerHTML = `<span class="animate-spin">⏳</span> Scanning Web & Forums...`;
       btn.disabled = true;
 
       setTimeout(() => {
-        btn.innerHTML = `✅ Found 3 New Mid-Tier Targets in ${currentNiche.toUpperCase()}!`;
-        setTimeout(() => {
-          btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg><span>Surf Internet for New 50k–150k Creators</span>`;
-          btn.disabled = false;
-        }, 2500);
-      }, 1500);
-    }
+        btn.innerHTML = `<span>Start Discovery Run</span>`;
+        btn.disabled = false;
 
-    // Select Creator & Jump to Step 2
-    function selectCreatorAndMine(creatorId) {
-      selectCreator(creatorId, true);
-      switchStep(2);
-    }
+        const results = [
+          {
+            name: "High-Ticket Client Delivery Friction in AI Agencies",
+            title: "The 14-Day Agency AI Automation Playbook & Delivery Vault",
+            niche: "Agency Growth & B2B AI",
+            countries: "United States, United Kingdom, Canada, Australia",
+            evidence: "Over 480 complaints parsed across r/agency, r/entrepreneur, and YouTube comment sections citing unmanageable manual onboarding drag.",
+            complaints: "1. 'Onboarding takes 3 days of manual back-and-forth.' 2. 'Zaps keep breaking without error logs.' 3. 'Need copy-paste client delivery boards.'",
+            audience: "Solo founders, boutique agency operators with 3-10 active retainers",
+            existing: "Generic YouTube tutorials and empty Notion templates with no logic",
+            whyInadequate: "Tutorials lack error-handling protocols and fail to provide verbatim client communication scripts",
+            solution: "42-Page Comprehensive Standard Operating Procedure (SOP), 45 tested production prompts, and pre-built Notion delivery board",
+            commercial: "$46,900 projected revenue at $67 price point (700 estimated launch units)",
+            competition: "Low saturation for battle-tested B2B playbooks; high saturation for surface-level courses",
+            sources: "https://reddit.com/r/agency, YouTube comments on @MarcusVanceOps, OpenAlex DOI 10.1016/j.chb.2024",
+            confidence: "96% High Confidence (Verified Empirical Evidence)",
+            score: 96
+          },
+          {
+            name: "Bio-Individual Circadian Rhythm Disruption & Sleep Paralysis",
+            title: "The 30-Day Circadian Architecture & Biomarker Protocol",
+            niche: "Health & Biohacking",
+            countries: "United States, Germany, United Kingdom",
+            evidence: "320+ questions on supplement stacking and contradictory morning cortisol advice across health subreddits and @DrRyanBiohack comments.",
+            complaints: "1. 'Every doctor gives opposite advice on melatonin.' 2. 'I wake up at 3am wired and tired.'",
+            audience: "High-stress knowledge workers and corporate operators aged 28–50",
+            existing: "Dense academic papers and fragmented podcasts",
+            whyInadequate: "Too complex for daily adherence; lacks a single 1-page morning-to-night checklist",
+            solution: "40-Page Protocol distinguishing educational frameworks from medical claims, complete with morning cortisol timing matrix",
+            commercial: "$39,200 projected revenue at $49 price point",
+            competition: "Medium market saturation; high consumer trust requirement",
+            sources: "PubMed Central, CrossRef DOI 10.1038/s41598, YouTube comments",
+            confidence: "94% High Confidence",
+            score: 94
+          }
+        ];
 
-    function selectCreator(creatorId, scroll = false) {
-      const creators = NICHE_DATA[currentNiche] || [];
-      selectedCreator = creators.find(c => c.id === creatorId) || creators[0];
-
-      // Update Banner
-      document.getElementById('active-creator-banner').innerHTML = `
-        <div class="flex items-center gap-4">
-          <img src="${selectedCreator.avatar}" class="w-14 h-14 rounded-full object-cover border-2 border-brand-500 shadow-lg">
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-xl font-extrabold text-white">${selectedCreator.name}</h2>
-              <span class="text-xs px-2 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan font-bold">${selectedCreator.followers} Followers (Sweet Spot)</span>
-            </div>
-            <p class="text-xs text-slate-400 mt-0.5">${selectedCreator.niche} · ${selectedCreator.avgViews} avg views · <strong class="text-accent-emerald">${selectedCreator.engagement} engagement</strong></p>
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <button onclick="switchStep(1)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-dark-850 hover:bg-slate-800 text-slate-300 border border-slate-700">
-            ← Change Creator Target
-          </button>
-        </div>
-      `;
-
-      // Render Comments
-      document.getElementById('comments-container').innerHTML = selectedCreator.comments.map(c => `
-        <div class="p-3.5 rounded-xl bg-dark-850 border border-slate-800/80 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-200">${c.author}</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-accent-amber/15 text-accent-amber border border-accent-amber/20">
-              Intensity: ${c.urgency}
-            </span>
-          </div>
-          <p class="text-xs text-slate-300 italic">"${c.text}"</p>
-          <div class="text-[10px] text-accent-emerald font-semibold">
-            Audience WTP: <strong>${c.willingness}</strong>
-          </div>
-        </div>
-      `).join('');
-
-      // Render Top 3 Demands Matrix
-      document.getElementById('top-3-demands-container').innerHTML = selectedCreator.demands.map(d => `
-        <div class="glass-card p-5 rounded-2xl border ${d.rank === 1 ? 'border-brand-500/40 glow-indigo' : 'border-white/10'} space-y-3.5">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-lg ${d.rank === 1 ? 'bg-gradient-to-tr from-accent-amber to-amber-600 text-black' : 'bg-slate-800 text-slate-300'} flex items-center justify-center font-extrabold text-xs">
-                #${d.rank}
-              </span>
+        document.getElementById('general-problems-container').innerHTML = results.map(r => `
+          <div class="panel p-5 space-y-3">
+            <div class="flex items-start justify-between">
               <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-accent-cyan px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/40">
-                  ${d.category} · ${d.pages} Pages
-                </span>
-                <h4 class="text-base font-extrabold text-white mt-1">${d.title}</h4>
+                <span class="text-[10px] uppercase font-bold text-teal-700 px-2 py-0.5 rounded bg-teal-50 border border-teal-200">${r.niche}</span>
+                <h4 class="text-sm font-bold text-slate-900 mt-1">${r.name}</h4>
+                <p class="text-xs text-slate-600 font-medium">Proposed Product: <strong class="text-slate-900">${r.title}</strong></p>
+              </div>
+              <div class="text-right">
+                <span class="text-xs text-slate-400">Viability Score</span>
+                <div class="text-xl font-bold text-emerald-600">${r.score}/100</div>
               </div>
             </div>
-            <div class="text-right">
-              <div class="text-[11px] text-slate-400">Viability Score</div>
-              <div class="text-xl font-extrabold ${d.rank === 1 ? 'text-accent-emerald' : 'text-slate-200'}">${d.score}/100</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200">
+              <div>
+                <strong>Evidence of Demand:</strong>
+                <p class="text-slate-600 text-[11px] mt-0.5">${r.evidence}</p>
+              </div>
+              <div>
+                <strong>Common Audience Complaints:</strong>
+                <p class="text-slate-600 text-[11px] mt-0.5">${r.complaints}</p>
+              </div>
+              <div>
+                <strong>Target Geographic Markets:</strong>
+                <p class="text-slate-600 text-[11px] mt-0.5">${r.countries}</p>
+              </div>
+              <div>
+                <strong>Estimated Commercial Opportunity:</strong>
+                <p class="text-emerald-700 font-bold text-[11px] mt-0.5">${r.commercial}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-[10px] text-slate-400 font-mono">Sources: ${r.sources.substring(0, 50)}...</span>
+              <button onclick="selectProblemForStudio('${r.title}')" class="btn-teal px-3.5 py-1.5 text-xs">
+                Co-Create in Product Studio →
+              </button>
             </div>
           </div>
+        `).join('');
 
-          <div class="text-[11px] text-slate-400 font-mono bg-dark-900/70 p-2.5 rounded-xl border border-slate-800">
-            📊 <strong>Formula Breakdown:</strong> ${d.formulaBreakdown}
-          </div>
+      }, 1000);
+    }
 
-          <p class="text-xs text-slate-300 italic">
-            "${d.quote}"
-          </p>
+    function selectProblemForStudio(title) {
+      document.getElementById('studio-title').value = title;
+      switchMainTab('studio');
+      switchSubTab('studio', 'workspace');
+    }
 
-          <div class="flex items-center justify-between pt-1">
-            <div class="text-xs">
-              <span class="text-slate-400">Target Price:</span> <strong class="text-white">$${d.price}</strong>
-              <span class="text-slate-500 mx-1">|</span>
-              <span class="text-slate-400">30-Day Est. Rev:</span> <strong class="text-accent-emerald">${d.estRev}</strong>
+    // Niche Discovery Execution
+    function runNicheDiscovery() {
+      runGeneralDiscovery();
+    }
+
+    // Creator Comparison Execution
+    function runCreatorComparison() {
+      const c1 = document.getElementById('creator-input-1').value;
+      const c2 = document.getElementById('creator-input-2').value;
+      
+      document.getElementById('creator-comparison-container').innerHTML = `
+        <div class="panel p-5 space-y-4">
+          <h4 class="text-sm font-bold text-slate-900">Audience Opportunity Comparison: ${c1} vs ${c2}</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-lg bg-teal-50 border border-teal-200 space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-slate-900">${c1} (84K Followers)</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Recommended Pick</span>
+              </div>
+              <p class="text-slate-700 text-[11px]">Audience demonstrates urgent operational pain points. Over 40% of recent comments ask for plug-and-play agency templates.</p>
+              <div class="font-bold text-emerald-700">Commercial Viability: 96/100</div>
             </div>
-
-            <button onclick="selectDemandAndCoCreate('${d.id}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-accent-emerald to-emerald-600 hover:opacity-90 text-xs font-bold text-white transition shadow-md shadow-emerald-500/20 flex items-center gap-1.5">
-              <span>🚀 Select & Build ${d.pages}-Page Asset</span>
-              <span>→</span>
-            </button>
+            <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-slate-900">${c2} (112K Followers)</span>
+                <span class="px-2 py-0.5 rounded bg-slate-200 text-slate-700 text-[10px] font-bold">Alternative Pick</span>
+              </div>
+              <p class="text-slate-700 text-[11px]">Strong audience trust, but questions center around personal productivity rather than B2B revenue tools.</p>
+              <div class="font-bold text-slate-700">Commercial Viability: 89/100</div>
+            </div>
           </div>
         </div>
-      `).join('');
-
-      selectedDemand = selectedCreator.demands[0];
-      syncProductStudio();
+      `;
     }
 
-    // Select Demand & Open Step 3
-    function selectDemandAndCoCreate(demandId) {
-      selectedDemand = selectedCreator.demands.find(d => d.id === demandId) || selectedCreator.demands[0];
-      syncProductStudio();
-      switchStep(3);
-    }
-
-    // Sync Product Studio (35–45 Pages)
-    function syncProductStudio() {
-      if (!selectedCreator || !selectedDemand) return;
-
-      document.getElementById('prod-title').value = selectedDemand.title;
-      document.getElementById('prod-price').value = selectedDemand.price;
-      
-      document.getElementById('cover-mock-title').textContent = selectedDemand.title;
-      document.getElementById('cover-mock-sub').textContent = `${selectedDemand.pages} Pages · Full Operational SOPs`;
-      document.getElementById('cover-mock-author').textContent = `${selectedCreator.name} (${selectedCreator.followers} Subs)`;
-      
-      document.getElementById('storefront-title').textContent = selectedDemand.title;
-      document.getElementById('storefront-creator-badge').textContent = `${selectedCreator.name} (${selectedCreator.followers} Subs)`;
-      document.getElementById('storefront-price-display').textContent = selectedDemand.price;
-
-      // Deep 5-Chapter Architecture (Totaling 35-45 pages)
-      const chapters = [
-        { num: 1, title: "The Operational Architecture & High-Leverage Frameworks", pages: "8 pages", desc: "Core diagnostic principles, eliminating bottleneck friction, and the 7-figure workflow map." },
-        { num: 2, title: "Step-by-Step SOPs & Inbound Client Acquisition Protocols", pages: "10 pages", desc: "Verbatim outreach scripts, positioning matrix, objection handling, and client onboarding funnels." },
-        { num: 3, title: "The Plug-and-Play Prompt Library & System Workflows", pages: "10 pages", desc: "45 tested production prompts, automated handoffs, and error-recovery automation sequences." },
-        { num: 4, title: "Scaling & Delegated Operations Without Adding Headcount", pages: "8 pages", desc: "Async client management, dashboard monitoring, and automated weekly financial reporting." },
-        { num: 5, title: "Action Checklists, Troubleshooting Vault & Notion Template", pages: "6 pages", desc: "Printable daily execution checklist, Notion board links, and master resource database." }
-      ];
-
-      document.getElementById('deep-chapters-list').innerHTML = chapters.map(ch => `
-        <div class="p-3 rounded-xl bg-dark-850 border border-slate-800 space-y-1">
-          <div class="flex items-center justify-between text-xs">
-            <div class="flex items-center gap-2">
-              <span class="w-5 h-5 rounded-full bg-slate-800 text-brand-400 flex items-center justify-center font-bold text-[10px]">
-                ${ch.num}
-              </span>
-              <span class="font-bold text-white">${ch.title}</span>
-            </div>
-            <span class="text-[10px] font-mono text-accent-cyan font-semibold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/40">${ch.pages}</span>
-          </div>
-          <p class="text-[11px] text-slate-400 pl-7">${ch.desc}</p>
-        </div>
-      `).join('');
-    }
-
-    // Render Partner Links Table
-    function renderPartnerLinksTable() {
-      const tbody = document.getElementById('creator-links-tbody');
-      tbody.innerHTML = partnerLinks.map((p, idx) => `
-        <tr class="hover:bg-dark-850/50 transition">
-          <td class="py-3 px-4 font-bold text-white">${p.creator} <span class="text-[10px] text-slate-400 block">${p.subs} Subs</span></td>
-          <td class="py-3 px-4 font-mono text-accent-cyan">
-            <a href="#" onclick="viewCreatorStorefront('${p.slug}', '${p.creator}', ${p.price}); return false;" class="underline hover:text-white">
-              /p/agency-playbook?ref=${p.slug}
-            </a>
-          </td>
-          <td class="py-3 px-4 font-bold text-accent-emerald">${p.splitFormula}</td>
-          <td class="py-3 px-4 font-bold text-white">$${p.price}</td>
-          <td class="py-3 px-4">${p.sales} units</td>
-          <td class="py-3 px-4 font-bold text-accent-emerald">${p.creatorPayout}</td>
-          <td class="py-3 px-4 font-bold text-brand-400">${p.yourShare}</td>
+    // Render Creators Directory (50k–150k Followers Focus)
+    function renderCreatorsDirectory(list) {
+      const tbody = document.getElementById('creators-directory-tbody');
+      tbody.innerHTML = list.map(c => `
+        <tr class="hover:bg-slate-50">
           <td class="py-3 px-4">
-            <button onclick="copyPartnerUrl('${p.slug}')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-semibold text-slate-200">
-              Copy URL
+            <div class="font-bold text-slate-900">${c.name}</div>
+            <div class="text-[11px] text-slate-500 font-mono">${c.handle}</div>
+          </td>
+          <td class="py-3 px-4 text-slate-600">${c.platform}</td>
+          <td class="py-3 px-4 font-bold text-teal-700">${c.followers}</td>
+          <td class="py-3 px-4 font-semibold text-emerald-600">${c.engagement}</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-200">${c.relevanceScore}% Match</span>
+          </td>
+          <td class="py-3 px-4 text-slate-600 font-mono text-[11px]">${c.email}</td>
+          <td class="py-3 px-4">
+            <button onclick="shortlistCreator('${c.id}')" class="btn-secondary px-2.5 py-1 text-[11px]">
+              + Shortlist
             </button>
           </td>
         </tr>
       `).join('');
     }
 
-    // Open/Close New Creator Link Modal
-    function openNewCreatorLinkModal() {
-      document.getElementById('new-creator-modal').classList.remove('hidden');
-    }
-    function closeNewCreatorModal() {
-      document.getElementById('new-creator-modal').classList.add('hidden');
-    }
-
-    // Save New Creator Partner Link
-    function saveNewCreatorLink() {
-      const name = document.getElementById('modal-creator-name').value.trim() || "New Creator Partner";
-      const slug = document.getElementById('modal-creator-slug').value.trim() || `creator_${Date.now()}`;
-      const splitPct = parseInt(document.getElementById('modal-creator-split').value) || 70;
-      const price = parseFloat(document.getElementById('modal-creator-price').value) || 67;
-
-      partnerLinks.push({
-        creator: name,
-        subs: "Custom",
-        slug: slug,
-        splitFormula: `${splitPct}% Creator / ${100 - splitPct}% NeedVane`,
-        creatorPct: splitPct,
-        price: price,
-        sales: 0,
-        creatorPayout: "$0",
-        yourShare: "$0",
-        status: "Active"
-      });
-
-      renderPartnerLinksTable();
-      closeNewCreatorModal();
-      alert(`Unique Partner URL generated: https://needvane-creator-ai.onrender.com/p/agency-playbook?ref=${slug}`);
-    }
-
-    function copyPartnerUrl(slug) {
-      const url = `https://needvane-creator-ai.onrender.com/p/agency-playbook?ref=${slug}`;
-      navigator.clipboard.writeText(url);
-      alert(`Copied unique partner URL:\n${url}`);
-    }
-
-    function viewCreatorStorefront(slug, name, price) {
-      document.getElementById('storefront-ref-tag').textContent = `?ref=${slug}`;
-      document.getElementById('storefront-creator-badge').textContent = name;
-      document.getElementById('storefront-price-display').textContent = price;
-      switchStep(6);
-    }
-
-    // Render Outreach CRM
-    function renderOutreachCRM() {
-      document.getElementById('col-pitched').innerHTML = outreachDeals.pitched.map(d => `
-        <div class="p-3 rounded-xl bg-dark-850 border border-slate-800 space-y-1">
-          <div class="font-bold text-white text-xs">${d.name}</div>
-          <div class="text-[11px] text-slate-400">${d.topic}</div>
-          <span class="text-[10px] font-semibold text-slate-400 block">${d.date} · ${d.status}</span>
-        </div>
-      `).join('');
-
-      document.getElementById('col-interested').innerHTML = outreachDeals.interested.map(d => `
-        <div class="p-3 rounded-xl bg-emerald-950/30 border border-emerald-800/40 space-y-1.5">
-          <div class="font-bold text-white text-xs flex items-center justify-between">
-            <span>${d.name}</span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">REPLIED</span>
-          </div>
-          <p class="text-[10px] text-slate-300 italic">"${d.replySnippet}"</p>
-          <button onclick="switchStep(4)" class="w-full mt-1 py-1 rounded bg-accent-emerald hover:bg-emerald-600 font-bold text-[10px] text-white transition">
-            Generate Her Unique 70/30 Link
-          </button>
-        </div>
-      `).join('');
-
-      document.getElementById('col-signed').innerHTML = outreachDeals.signed.map(d => `
-        <div class="p-3 rounded-xl bg-brand-950/40 border border-brand-500/30 space-y-1">
-          <div class="font-bold text-white text-xs">${d.name}</div>
-          <div class="text-[10px] text-accent-emerald font-bold">Revenue: ${d.revTotal}</div>
-          <span class="text-[10px] text-brand-300 font-semibold block">${d.status}</span>
-        </div>
-      `).join('');
-
-      document.getElementById('col-declined').innerHTML = outreachDeals.declined.map(d => `
-        <div class="p-3 rounded-xl bg-dark-850 border border-slate-800 text-slate-400 space-y-1">
-          <div class="font-bold text-xs">${d.name}</div>
-          <div class="text-[10px]">${d.status}</div>
-        </div>
-      `).join('');
-    }
-
-    // Step Switching
-    function switchStep(step) {
-      currentStep = step;
-      for (let i = 1; i <= 6; i++) {
-        const nav = document.getElementById(`step-nav-${i}`);
-        const view = document.getElementById(`step-${i}-view`);
-        
-        if (i === step) {
-          if (nav) {
-            nav.className = "flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-white bg-brand-600/40 border border-brand-500 shadow-sm shadow-brand-500/20 whitespace-nowrap";
-            nav.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-brand-500 text-white flex items-center justify-center text-[10px] font-bold";
-          }
-          if (view) view.classList.remove('hidden');
-        } else {
-          if (nav) {
-            nav.className = "flex items-center gap-2 px-3.5 py-2 rounded-xl transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent whitespace-nowrap";
-            nav.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px] font-bold";
-          }
-          if (view) view.classList.add('hidden');
-        }
+    function filterCreatorNiche(nicheKey) {
+      if (nicheKey === 'all') {
+        renderCreatorsDirectory(creatorsList);
+      } else {
+        const filtered = creatorsList.filter(c => c.niche === nicheKey);
+        renderCreatorsDirectory(filtered);
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Download Sample PDF Blueprint
-    function downloadSamplePDF() {
-      const title = document.getElementById('prod-title').value;
-      const text = `NEEDVANE CREATOR AI — 42-PAGE PRODUCTION PLAYBOOK\n\n` +
-        `TITLE: ${title}\n` +
-        `TARGET CREATOR NICHE: ${currentNiche.toUpperCase()}\n` +
-        `PRIMARY PARTNER: ${selectedCreator ? selectedCreator.name : 'Marcus Vance'}\n` +
-        `PRICE: $${document.getElementById('prod-price').value}\n` +
-        `STANDARD SPLIT: 70% Creator / 30% NeedVane\n\n` +
-        `CHAPTER BREAKDOWN (42 TOTAL PAGES):\n` +
-        `Chapter 1: The Operational Architecture & High-Leverage Frameworks (8 Pages)\n` +
-        `Chapter 2: Step-by-Step SOPs & Inbound Client Acquisition Protocols (10 Pages)\n` +
-        `Chapter 3: The Plug-and-Play Prompt Library & System Workflows (10 Pages)\n` +
-        `Chapter 4: Scaling & Delegated Operations Without Adding Headcount (8 Pages)\n` +
-        `Chapter 5: Action Checklists, Troubleshooting Vault & Notion Template (6 Pages)\n\n` +
-        `Compiled & Published via NeedVane Creator AI Engine.`;
+    function shortlistCreator(id) {
+      alert("Creator added to your active Outreach Database!");
+      switchMainTab('outreach');
+    }
 
+    // Render Product Studio Chapters
+    function renderStudioChapters() {
+      const chapters = [
+        { num: 1, title: "The Operational Architecture & High-Leverage Frameworks", pages: "8 pages", desc: "Diagnostic assessment, bottleneck elimination, and the 7-figure workflow map." },
+        { num: 2, title: "Step-by-Step SOPs & Client Acquisition Protocols", pages: "10 pages", desc: "Verbatim client scripts, positioning matrix, objection handling, and onboarding funnels." },
+        { num: 3, title: "The Plug-and-Play Prompt Library & System Workflows", pages: "10 pages", desc: "45 tested production prompts, automated handoffs, and error-recovery sequences." },
+        { num: 4, title: "Scaling & Delegated Operations Without Adding Headcount", pages: "8 pages", desc: "Async client management, dashboard monitoring, and weekly financial reporting." },
+        { num: 5, title: "Action Checklists, Troubleshooting Vault & Notion Template", pages: "6 pages", desc: "Printable daily execution checklists and master resource database." }
+      ];
+
+      document.getElementById('studio-chapters-container').innerHTML = chapters.map(ch => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-[10px]">${ch.num}</span>
+              <span class="font-bold text-slate-900 text-xs">${ch.title}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 pl-7 mt-0.5">${ch.desc}</p>
+          </div>
+          <span class="text-[11px] font-mono text-teal-700 font-semibold px-2 py-0.5 rounded bg-teal-50 border border-teal-200">${ch.pages}</span>
+        </div>
+      `).join('');
+
+      const bonuses = [
+        { role: "Bonus A", title: "The 30-Day Execution Companion & Workbook", pages: "12 pages", desc: "Daily diagnostic logs and habit matrices." },
+        { role: "Bonus B", title: "The High-Ticket Client Script Accelerator", pages: "14 pages", desc: "Copy-paste cold email & outreach scripts." }
+      ];
+      document.getElementById('studio-bonuses-preview').innerHTML = bonuses.map(b => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-white space-y-1">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] uppercase font-bold text-teal-700">${b.role}</span>
+            <span class="text-[10px] font-mono text-slate-500">${b.pages}</span>
+          </div>
+          <div class="font-bold text-slate-900 text-xs">${b.title}</div>
+          <p class="text-[11px] text-slate-500">${b.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    // Render Production Monitor
+    function renderProductionMonitor() {
+      const container = document.getElementById('monitor-steps-container');
+      container.innerHTML = productionMonitorSteps.map(s => `
+        <div class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-[10px] font-bold">✓</span>
+            <span class="text-slate-800 font-medium">${s.name}</span>
+          </div>
+          <span class="text-[10px] font-semibold text-emerald-700">${s.status}</span>
+        </div>
+      `).join('');
+    }
+
+    function startProductionJob() {
+      const btn = document.getElementById('btn-start-production');
+      btn.innerHTML = `<span class="animate-spin">⏳</span> Compiling 42-Page Asset...`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = `<span>Initiate Live Production Job</span><span>→</span>`;
+        btn.disabled = false;
+        alert("Your product is ready for review! Preview and approve before publishing.");
+      }, 1500);
+    }
+
+    function downloadMasterPDF() {
+      const text = "NEEDVANE CREATOR AI — 42-PAGE COMPREHENSIVE PRODUCTION PLAYBOOK\n\nTitle: The 14-Day Agency AI Automation Playbook\nPages: 42 Pages\nStandard: 35-45 Page Core Content\nBonuses: Bonus A (12 pgs) & Bonus B (14 pgs)\n\nCompiled via NeedVane Production Document Engine.";
       const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${title.replace(/[^a-zA-Z0-9]/g, '_')}_42P_Master.txt`;
+      a.download = "Agency_AI_Playbook_42P_Master.txt";
       a.click();
     }
 
-    // Checkout Modals
-    function openCheckoutModal() {
-      document.getElementById('checkout-modal').classList.remove('hidden');
+    // Outreach Table Population & Selection
+    function renderOutreachTable() {
+      const tbody = document.getElementById('outreach-table-tbody');
+      tbody.innerHTML = creatorsList.map(c => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-4"><input type="checkbox" class="creator-checkbox" data-id="${c.id}" ${c.selected ? 'checked' : ''} onchange="updateCreatorSelection('${c.id}', this.checked)"></td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-900">${c.name}</div>
+            <div class="text-[11px] text-slate-500">${c.handle}</div>
+          </td>
+          <td class="py-3 px-4 text-slate-600">${c.category} (${c.followers})</td>
+          <td class="py-3 px-4 font-medium text-slate-800">${c.matchedProduct}</td>
+          <td class="py-3 px-4 font-bold text-teal-700">${c.split}</td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${c.status.includes('Accepted') ? 'bg-emerald-50 text-emerald-800' : (c.status.includes('Replied') ? 'bg-amber-50 text-amber-800' : 'bg-slate-100 text-slate-700')}">
+              ${c.status}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-slate-500">${c.lastActivity}</td>
+          <td class="py-3 px-4">
+            <button onclick="previewSinglePitch('${c.name}')" class="text-teal-700 hover:underline font-semibold">Pitch</button>
+          </td>
+        </tr>
+      `).join('');
+      updateSelectedCount();
     }
-    function closeCheckoutModal() {
-      document.getElementById('checkout-modal').classList.add('hidden');
-    }
-    function submitTestOrder() {
-      const btn = document.getElementById('btn-submit-order');
-      btn.innerHTML = `<span class="animate-spin">⏳</span> Processing Payment...`;
-      btn.disabled = true;
 
-      setTimeout(() => {
-        document.getElementById('checkout-result-box').classList.remove('hidden');
-        btn.innerHTML = `✅ Complete! Downloading...`;
-        downloadSamplePDF();
-        setTimeout(() => {
-          closeCheckoutModal();
-          btn.disabled = false;
-        }, 1800);
-      }, 1000);
+    function toggleMasterSelect(masterBox) {
+      selectAllOutreach(masterBox.checked);
     }
 
-    // Settings Modal
-    function toggleSettingsModal() {
-      document.getElementById('settings-modal').classList.toggle('hidden');
+    function selectAllOutreach(boolVal) {
+      creatorsList.forEach(c => c.selected = boolVal);
+      document.querySelectorAll('.creator-checkbox').forEach(cb => cb.checked = boolVal);
+      updateSelectedCount();
     }
-    function saveApiUrl() {
-      const url = document.getElementById('api-base-url-input').value.trim();
-      if (url) {
-        API_BASE_URL = url;
-        localStorage.setItem('needvane_api_url', url);
-        toggleSettingsModal();
+
+    function updateCreatorSelection(id, boolVal) {
+      const c = creatorsList.find(x => x.id === id);
+      if (c) c.selected = boolVal;
+      updateSelectedCount();
+    }
+
+    function updateSelectedCount() {
+      const count = creatorsList.filter(c => c.selected).length;
+      document.getElementById('selected-count').textContent = count;
+    }
+
+    function openBulkPitchModal() {
+      const count = creatorsList.filter(c => c.selected).length;
+      if (count === 0) {
+        alert("Please select at least one creator using the checkboxes.");
+        return;
       }
+      document.getElementById('modal-bulk-pitch').classList.remove('hidden');
+    }
+
+    function closeBulkPitchModal() {
+      document.getElementById('modal-bulk-pitch').classList.add('hidden');
+    }
+
+    function confirmDispatchPitches() {
+      closeBulkPitchModal();
+      alert("Personalized outreach pitches successfully dispatched to selected creators!");
+      creatorsList.forEach(c => {
+        if (c.selected) c.status = "Pitched / Waiting";
+      });
+      renderOutreachTable();
+    }
+
+    function previewSinglePitch(name) {
+      alert(`Previewing personalized email pitch for ${name}.`);
+    }
+
+    function renderOutreachInbox() {
+      const replies = [
+        { name: "Elena Rostova (112K Subs)", time: "14m ago", snippet: "The 42-page blueprint draft looks super high quality. I am open to the 65/35 split. Send me my unique link so I can test it!" },
+        { name: "James Sterling (72K Subs)", time: "2h ago", snippet: "Can we hop on a 10-minute call to discuss the pricing model? My audience would love the conversation playbook." }
+      ];
+      document.getElementById('outreach-replies-inbox').innerHTML = replies.map(r => `
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900">${r.name}</span>
+            <span class="text-[10px] text-slate-400">${r.time}</span>
+          </div>
+          <p class="text-slate-600 text-[11px] italic">"${r.snippet}"</p>
+        </div>
+      `).join('');
+    }
+
+    // Storefront Links Table
+    function renderStorefrontLinks() {
+      const tbody = document.getElementById('storefront-links-tbody');
+      tbody.innerHTML = partnerLinks.map(p => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-4 font-bold text-slate-900">${p.creator}</td>
+          <td class="py-3 px-4 font-mono text-teal-700">/p/agency-playbook?ref=${p.slug}</td>
+          <td class="py-3 px-4 font-semibold text-slate-800">${p.split}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">$${p.price}</td>
+          <td class="py-3 px-4">${p.sales} units</td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-800">${p.status}</span></td>
+          <td class="py-3 px-4">
+            <button onclick="previewCreatorStorefront('${p.creator}', ${p.price})" class="text-teal-700 hover:underline font-semibold">Preview Page</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function previewCreatorStorefront(name, price) {
+      document.getElementById('sf-preview-creator').textContent = name;
+      document.getElementById('sf-preview-price').textContent = price;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function openNewCreatorLinkModal() {
+      document.getElementById('modal-new-creator-link').classList.remove('hidden');
+    }
+    function closeNewCreatorLinkModal() {
+      document.getElementById('modal-new-creator-link').classList.add('hidden');
+    }
+
+    function saveNewCreatorLink() {
+      const name = document.getElementById('modal-c-name').value.trim() || "New Creator";
+      const slug = document.getElementById('modal-c-slug').value.trim() || "partner_ref";
+      const splitVal = document.getElementById('modal-c-split').value;
+      const priceVal = parseFloat(document.getElementById('modal-c-price').value) || 67;
+
+      partnerLinks.push({
+        creator: name,
+        slug: slug,
+        split: `${splitVal}% / ${100 - splitVal}%`,
+        price: priceVal,
+        sales: 0,
+        status: "Live"
+      });
+
+      renderStorefrontLinks();
+      closeNewCreatorLinkModal();
+      alert(`Unique Partner Link Activated: https://needvane-creator-ai.onrender.com/p/agency-playbook?ref=${slug}`);
+    }
+
+    function simulateOrderCheckout() {
+      alert("Order completed! Download tokens dispatched to email and creator referral commission credited to ledger.");
+    }
+
+    // Analytics Comparison Table
+    function renderAnalyticsTable() {
+      const creators = [
+        { name: "Marcus Vance", clicks: 1420, orders: 284, cr: "20.0%", gross: "$19,028", cShare: "$13,319 (70%)", pNet: "$5,709 (30%)", status: "Settled" },
+        { name: "Elena Rostova", clicks: 880, orders: 142, cr: "16.1%", gross: "$9,514", cShare: "$6,184 (65%)", pNet: "$3,330 (35%)", status: "Pending Settlement" },
+        { name: "Liam Keller", clicks: 610, orders: 94, cr: "15.4%", gross: "$6,298", cShare: "$4,723 (75%)", pNet: "$1,575 (25%)", status: "Settled" }
+      ];
+
+      document.getElementById('analytics-creators-tbody').innerHTML = creators.map(c => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-4 font-bold text-slate-900">${c.name}</td>
+          <td class="py-3 px-4">${c.clicks}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">${c.orders}</td>
+          <td class="py-3 px-4 text-emerald-600 font-semibold">${c.cr}</td>
+          <td class="py-3 px-4 font-bold text-slate-900">${c.gross}</td>
+          <td class="py-3 px-4 text-emerald-600 font-bold">${c.cShare}</td>
+          <td class="py-3 px-4 text-teal-700 font-bold">${c.pNet}</td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${c.status === 'Settled' ? 'bg-emerald-50 text-emerald-800' : 'bg-amber-50 text-amber-800'}">${c.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function exportAnalyticsCSV() {
+      alert("Downloading transaction & creator payout ledger CSV...");
+    }
+
+    // Admin Users Table
+    function renderAdminUsers() {
+      const users = [
+        { name: "Alexander Vance", email: "alexander@venturelabs.co", role: "Owner / Administrator", scope: "Unrestricted", fin: "Full Access" },
+        { name: "Guest Reviewer", email: "reviewer@collaborator.com", role: "Viewer / Guest", scope: "Research & Drafts Only", fin: "Restricted 🔒" }
+      ];
+
+      document.getElementById('admin-users-tbody').innerHTML = users.map(u => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-900">${u.name}</div>
+            <div class="text-[11px] text-slate-500 font-mono">${u.email}</div>
+          </td>
+          <td class="py-3 px-4 font-semibold text-slate-800">${u.role}</td>
+          <td class="py-3 px-4 text-slate-600">${u.scope}</td>
+          <td class="py-3 px-4 font-bold ${u.fin.includes('Full') ? 'text-emerald-600' : 'text-amber-600'}">${u.fin}</td>
+          <td class="py-3 px-4"><button class="text-slate-400 hover:text-slate-600">Edit</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function openInviteModal() {
+      alert("Invite Collaborator: Send an email invitation with assigned Guest or Editor role.");
+    }
+
+    function toggleSidebarCollapse() {
+      const sb = document.getElementById('sidebar');
+      sb.classList.toggle('w-64');
+      sb.classList.toggle('w-20');
     }
   </script>
 </body>
